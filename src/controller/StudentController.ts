@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { IResponseModel } from '../interface/response'
+import { IResponseModel } from '../types/response'
 import { StudentService } from '../service/StudentService'
 
 class StudentController {
@@ -10,7 +10,7 @@ class StudentController {
   }
 
   async create(request: Request, response: Response<IResponseModel>) {
-    this.studentService.create()
+    this.studentService.create(request.body)
 
     return response.json({
       message: "",

@@ -1,1 +1,11 @@
 GET http://localhost:5000/student
+
+###
+
+POST http://localhost:5000/student
+Content-Type: application/json
+
+{
+  "name": "John",
+  "birthday": "2001-02-05T05:00:00.000Z",
+}

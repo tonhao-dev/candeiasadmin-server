@@ -1,12 +1,33 @@
-import { IStudentService } from '../interface/student'
+import { StudentDTO } from '../dto/student'
+import { Student } from '../entity/student'
+import { IResponseModel } from '../types/response'
+import { StudentRepository } from '../repository/student'
 
-class StudentService implements IStudentService {
-  async getAll() {
-    console.log("Get all students")
+class StudentService {
+  private repository: StudentRepository
+
+  constructor({ repository } = { repository: new StudentRepository() }) {
+    this.repository = repository
   }
 
-  async create() {
-    console.log("Create a student")
+  async create(studentDTO: StudentDTO): Promise<IResponseModel<string>> {
+    const student = new Student(studentDTO)
+
+    if (!student.validation.hasError) {
+      return {
+        message: student.validation.message,
+        result: null,
+        validations: student.validation.validations
+      }
+    }
+
+    const id = await this.repository.saveOne(student)
+
+    return {
+      message: '',
+      result: id,
+      validations: []
+    }
   }
 }
 
