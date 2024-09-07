@@ -1,28 +1,26 @@
-import { IGuardianDTO } from "../dto/guardian"
-import { ValidationError } from "./error"
+import { IGuardianDTO } from '../dto/guardian';
+import { ValidationError } from './error';
 
 class Guardian {
-  public name?: string = ''
-  public phone?: string = ''
-  public validation: ValidationError = new ValidationError()
+  public name?: string = '';
+  public phone?: string = '';
+  public validation: ValidationError = new ValidationError();
 
   constructor(guardianDTO?: IGuardianDTO) {
     if (!Guardian.validate(guardianDTO) || !guardianDTO) {
-      this.validation.hasError = false
-      this.validation.message = 'O guardião deve possuir nome e telefone'
-      return
+      this.validation.message = 'O guardião deve possuir nome e telefone';
+      return;
     }
 
-    this.validation.hasError = false
-    this.name = guardianDTO.name
-    this.phone = guardianDTO.phone
+    this.name = guardianDTO.name;
+    this.phone = guardianDTO.phone;
   }
 
   private static validate(guardianDTO?: IGuardianDTO) {
-    if (!guardianDTO) return false
+    if (!guardianDTO) return false;
 
-    return guardianDTO?.name.length > 0 && guardianDTO?.phone.length > 0
+    return guardianDTO?.name.length > 0 && guardianDTO?.phone.length > 0;
   }
 }
 
-export { Guardian }
+export { Guardian };

@@ -1,9 +1,20 @@
-// give a suggest to nama this error class
-
 class ValidationError {
-  hasError: boolean = false
-  message: string = ''
-  validations: string[] = []
+  message: string = '';
+  validations: string[] = [];
+
+  constructor(
+    { message, validations }: { message: string; validations: string[] } = {
+      message: '',
+      validations: [],
+    }
+  ) {
+    this.message = message;
+    this.validations = validations;
+  }
+
+  get hasError(): boolean {
+    return this.validations.length > 0;
+  }
 }
 
-export { ValidationError }
+export { ValidationError };

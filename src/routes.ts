@@ -6,6 +6,6 @@ const routes = express.Router()
 
 const studentController = new StudentController()
 
-routes.post('/student', validateStudentCreation, studentController.create)
+routes.post('/student', validateStudentCreation, studentController.create.bind(studentController))
 
 export { routes }
