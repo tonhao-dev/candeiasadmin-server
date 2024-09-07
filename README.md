@@ -8,7 +8,7 @@ Este projeto foi desenvolvido com o objetivo de servir como componente para o tr
 
 ## ⚒ Ferramentas
 
-As principais ferramentas utilizadas no front-end da aplicação 'citei' são:
+As principais ferramentas utilizadas na aplicação são:
 
 - [Node.JS](https://nodejs.org/en)
 - [TypeScript](https://www.typescriptlang.org/)
