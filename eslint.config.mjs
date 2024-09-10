@@ -56,5 +56,13 @@ export default [
       'no-underscore-dangle': 'off',
       'react/jsx-no-bind': 'off',
     },
+    overrides: [
+      {
+        "files": ["tests/**/*"],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
   },
 ];
