@@ -1,16 +1,16 @@
 import { StudentDTO } from '../dto/student';
 import { Genders } from '../enum/gender';
 import { ISODate } from '../types/date';
-import { differenceInYears } from 'date-fns';
+import { differenceInYears, isAfter, isBefore, isValid, parse } from 'date-fns';
 import { ValidationError } from './error';
 import { Guardian } from './guardian';
 
 class Student {
   public name: string = '';
   public birthday: ISODate = '';
+  public gender: Genders = Genders.Other;
   public validation: ValidationError = new ValidationError();
   public phone?: string;
-  public gender?: Genders;
   public guardian?: Guardian;
 
   constructor(studentDTO: StudentDTO) {
@@ -29,7 +29,7 @@ class Student {
   }
 
   private static validate(studentDTO: StudentDTO): string[] {
-    const allValidations = [this.validateChildren];
+    const allValidations = [this.validateBirthday, this.validateName, this.validateChildren];
 
     const validationsMessages = allValidations.reduce((validations, validation) => {
       const { hasError, message } = validation(studentDTO);
@@ -54,6 +54,27 @@ class Student {
     const guardian = new Guardian(StudentDTO.guardian);
 
     return { hasError: guardian.validation.hasError, message: guardian.validation.message };
+  }
+
+  private static validateName(studentDTO: StudentDTO): { hasError: boolean; message: string } {
+    if (studentDTO.name.length > 0) return { hasError: false, message: '' };
+
+    return { hasError: true, message: 'Nome é obrigatório' };
+  }
+
+  private static validateBirthday(studentDTO: StudentDTO): { hasError: boolean; message: string } {
+    if (studentDTO.birthday.length === 0)
+      return { hasError: true, message: 'A data de nascimento não pode ser vazia' };
+
+    const birthday = new Date(studentDTO.birthday);
+
+    if (!isValid(birthday)) return { hasError: true, message: 'Data de nascimento é inválida' };
+    if (isAfter(birthday, new Date()))
+      return { hasError: true, message: 'Data de nascimento não pode ser maior que a data atual' };
+    if (isBefore(new Date(studentDTO.birthday), new Date('1900-01-01')))
+      return { hasError: true, message: 'Data de nascimento não pode ser menor que 01/01/1900' };
+
+    return { hasError: false, message: '' };
   }
 }
 
