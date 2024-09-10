@@ -6,6 +6,6 @@ POST http://localhost:5000/student
 Content-Type: application/json
 
 {
-  "name": "John",
+  "name": "Luis Santiago",
   "birthday": "2001-02-05T05:00:00.000Z"
 }
