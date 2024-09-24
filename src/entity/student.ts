@@ -57,9 +57,10 @@ class Student {
   }
 
   private static validateName(studentDTO: StudentDTO): { hasError: boolean; message: string } {
-    if (studentDTO.name.length > 0) return { hasError: false, message: '' };
+    if (studentDTO.name === undefined || studentDTO.name === null || studentDTO.name.length === 0)
+      return { hasError: true, message: 'Nome é obrigatório' };
 
-    return { hasError: true, message: 'Nome é obrigatório' };
+    return { hasError: false, message: '' };
   }
 
   private static validateBirthday(studentDTO: StudentDTO): { hasError: boolean; message: string } {

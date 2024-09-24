@@ -27,7 +27,7 @@ describe('Estudante', () => {
     expect(student.validation.hasError).toBe(false);
   });
 
-  it('deve criar um aluno inválido quando ele for criado sem nome', () => {
+  it('deve criar um aluno inválido quando ele for criado com nome vazio', () => {
     const student = new Student({
       name: '',
       birthday: new Date().toISOString(),

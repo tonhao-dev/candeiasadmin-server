@@ -12,6 +12,10 @@ class StudentController {
   async create(request: Request, response: Response<IResponseModel>) {
     const result = await this.studentService.create(request.body);
 
+    if (result.validations.length > 0) {
+      return response.status(400).json(result);
+    }
+
     return response.json(result);
   }
 }
