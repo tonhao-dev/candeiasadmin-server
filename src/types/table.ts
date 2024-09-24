@@ -1,10 +1,12 @@
 import { UUID } from 'crypto';
+import { Genders } from '../enum/gender';
 
 export interface StudentTable {
   id: UUID;
   name: string;
   phone: string | null;
   email: string | null;
+  gender: Genders;
   birthday: Date | null;
   guardian_id: UUID;
   created_at: Date;

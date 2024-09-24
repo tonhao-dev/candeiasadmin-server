@@ -6,8 +6,9 @@ POST http://localhost:5000/student
 Content-Type: application/json
 
 {
-  "name": "Luis Santiago",
-  "birthday": "2001-02-05T05:00:00.000Z"
+  "name": "Luis Homem",
+  "birthday": "2001-02-05T05:00:00.000Z",
+  "gender": 1
 }
 
 ###
@@ -18,6 +19,7 @@ Content-Type: application/json
 {
   "name": "Ezequiel da Silva Soares",
   "birthday": "2001-02-05T05:00:00.000Z",
+  "gender": 1,
   "guardian": {
     "name": "Tonhão da Silva Junior",
     "phone": "11999999999"

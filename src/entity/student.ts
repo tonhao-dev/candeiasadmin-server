@@ -25,7 +25,9 @@ class Student {
     this.birthday = studentDTO.birthday;
     this.phone = studentDTO.phone;
     this.gender = studentDTO.gender;
-    this.guardian = new Guardian(studentDTO.guardian);
+
+    if (!new Guardian(studentDTO.guardian).validation.hasError)
+      this.guardian = new Guardian(studentDTO.guardian);
   }
 
   private static validate(studentDTO: StudentDTO): string[] {

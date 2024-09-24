@@ -9,10 +9,11 @@ export class StudentDTO {
   public phone?: string;
   public guardian?: IGuardianDTO;
 
-  constructor({ name, birthday, guardian, phone }: StudentDTO) {
+  constructor({ name, birthday, guardian, phone, gender }: StudentDTO) {
     this.name = name;
     this.birthday = birthday;
     this.guardian = guardian;
     this.phone = phone;
+    this.gender = gender;
   }
 }

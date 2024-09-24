@@ -8,14 +8,15 @@ export interface IStudentRepository {
 
 export class StudentRepository implements IStudentRepository {
   async saveOne(student: Student) {
+    const studentData = {
+      name: student.name,
+      birthday: new Date(student.birthday),
+      phone: student.phone,
+      gender: student.gender,
+    };
+
     if (!student.guardian) {
-      const [{ id }] = await db('student')
-        .insert({
-          name: student.name,
-          birthday: new Date(student.birthday),
-          phone: student.phone,
-        })
-        .returning('id');
+      const [{ id }] = await db('student').insert(studentData).returning('id');
 
       return id;
     }
@@ -28,12 +29,7 @@ export class StudentRepository implements IStudentRepository {
       .returning('id');
 
     const [{ id }] = await db('student')
-      .insert({
-        name: student.name,
-        birthday: new Date(student.birthday),
-        phone: student.phone,
-        guardian_id: guardianId,
-      })
+      .insert({ ...studentData, guardian_id: guardianId })
       .returning('id');
 
     return id;
