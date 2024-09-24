@@ -6,6 +6,7 @@ export interface StudentTable {
   phone: string | null;
   email: string | null;
   birthday: Date | null;
+  guardian_id: UUID;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;

@@ -86,4 +86,18 @@ describe('Estudante', () => {
 
     expect(student.validation.hasError).toBe(true);
   });
+
+  it('deve criar um aluno inválido quando ele for de menor e o guardião não possuir nome', () => {
+    const student = new Student({
+      name: 'Aluno',
+      birthday: subYears(new Date(), 9).toISOString(),
+      gender: Genders.Male,
+      guardian: {
+        name: '',
+        phone: '68912345678',
+      },
+    });
+
+    expect(student.validation.hasError).toBe(true);
+  });
 });
