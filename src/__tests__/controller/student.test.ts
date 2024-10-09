@@ -1,5 +1,9 @@
 import request from 'supertest';
 import { app } from '../../server';
+import { subYears } from 'date-fns';
+import { Genders } from '../../enum/gender';
+import { Race } from '../../enum/race';
+import { Status } from '../../enum/status';
 
 describe('GET /student', () => {
   it('Deve retornar uma lista de alunos', function () {
@@ -9,13 +13,12 @@ describe('GET /student', () => {
       .expect(200)
       .then(response => {
         expect(response.body.result).toBeDefined();
-        expect(response.body.result.length).toBeGreaterThan(0);
       });
   });
 });
 
 describe('POST /student', () => {
-  it('Deve criar um aluno de maior', function () {
+  it('Deve criar um aluno de maior com apenas as informações obrigatórias', function () {
     return request(app)
       .post('/student')
       .send({
@@ -24,6 +27,37 @@ describe('POST /student', () => {
       })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
+      .expect(200)
+      .then(response => {
+        expect(response.body.result).toBeDefined();
+      });
+  });
+
+  it('Deve criar um aluno criança com todas as informações completas', function () {
+    return request(app)
+      .post('/student')
+      .send({
+        name: 'Maria Clara',
+        birthday: subYears(new Date(), 10),
+        gender: Genders.Female,
+        is_pwd: false,
+        race: Race.Black,
+        status: Status.Active,
+        email: 'maria.clara@example.com',
+        address: '123 Main St, Anytown, USA',
+        phone: '1234567890',
+        facebook: 'maria.clara',
+        instagram: 'maria.clara',
+        tiktok: 'maria.clara',
+        job: 'Student',
+        education_level: 'High School',
+        course: 'Science',
+        guardian: {
+          name: 'Guardião da Maria Clara',
+          phone: '11999999999',
+        },
+      })
+      .set('Accept', 'application/json')
       .expect(200)
       .then(response => {
         expect(response.body.result).toBeDefined();

@@ -52,6 +52,17 @@ class StudentService {
           name: student.guardian_name,
           phone: student.guardian_phone,
         },
+        is_pwd: student.is_pwd,
+        race: student.race,
+        status: student.status,
+        email: student.email,
+        address: student.address,
+        facebook: student.facebook,
+        instagram: student.instagram,
+        tiktok: student.tiktok,
+        job: student.job,
+        education_level: student.education_level,
+        course: student.course,
       })
     );
   }

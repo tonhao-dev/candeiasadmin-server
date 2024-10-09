@@ -1,9 +1,11 @@
 import { StudentDTO } from '../dto/student';
 import { Genders } from '../enum/gender';
 import { ISODate } from '../types/date';
-import { differenceInYears, isAfter, isBefore, isValid, parse } from 'date-fns';
+import { differenceInYears, isAfter, isBefore, isValid } from 'date-fns';
 import { ValidationError } from './error';
 import { Guardian } from './guardian';
+import { Race } from '../enum/race';
+import { Status } from '../enum/status';
 
 class Student {
   public name: string = '';
@@ -12,6 +14,18 @@ class Student {
   public validation: ValidationError = new ValidationError();
   public phone?: string;
   public guardian?: Guardian;
+  public nickname?: string | null;
+  public is_pwd?: boolean = false;
+  public race?: Race = Race.Black;
+  public status?: Status = Status.Active;
+  public email?: string | null;
+  public address?: string | null;
+  public facebook?: string | null;
+  public instagram?: string | null;
+  public tiktok?: string | null;
+  public job?: string | null;
+  public education_level?: string | null;
+  public course?: string | null;
 
   constructor(studentDTO: StudentDTO) {
     const validations = Student.validate(studentDTO);
@@ -25,6 +39,18 @@ class Student {
     this.birthday = studentDTO.birthday;
     this.phone = studentDTO.phone;
     this.gender = studentDTO.gender;
+    this.nickname = studentDTO.nickname;
+    this.is_pwd = studentDTO.is_pwd;
+    this.race = studentDTO.race;
+    this.status = studentDTO.status;
+    this.email = studentDTO.email;
+    this.address = studentDTO.address;
+    this.facebook = studentDTO.facebook;
+    this.instagram = studentDTO.instagram;
+    this.tiktok = studentDTO.tiktok;
+    this.job = studentDTO.job;
+    this.education_level = studentDTO.education_level;
+    this.course = studentDTO.course;
 
     if (new Guardian(studentDTO.guardian).validation.hasError) return;
 
