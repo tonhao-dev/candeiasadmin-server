@@ -1,6 +1,19 @@
 import request from 'supertest';
 import { app } from '../../server';
 
+describe('GET /student', () => {
+  it('Deve retornar uma lista de alunos', function () {
+    return request(app)
+      .get('/student')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .then(response => {
+        expect(response.body.result).toBeDefined();
+        expect(response.body.result.length).toBeGreaterThan(0);
+      });
+  });
+});
+
 describe('POST /student', () => {
   it('Deve criar um aluno de maior', function () {
     return request(app)

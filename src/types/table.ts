@@ -7,7 +7,7 @@ export interface StudentTable {
   phone: string | null;
   email: string | null;
   gender: Genders;
-  birthday: Date | null;
+  birthday: Date;
   guardian_id: UUID;
   created_at: Date;
   updated_at: Date;
@@ -22,4 +22,9 @@ export interface GuardianTable {
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
+}
+
+export interface StudentTableWithGuardian extends StudentTable {
+  guardian_name: string;
+  guardian_phone: string;
 }

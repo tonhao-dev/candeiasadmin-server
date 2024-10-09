@@ -1,12 +1,22 @@
 import { UUID } from 'crypto';
 import db from '../database/connection';
 import { Student } from '../entity/student';
+import { StudentTableWithGuardian } from '../types/table';
 
 export interface IStudentRepository {
   saveOne: (student: Student) => Promise<UUID>;
+  getAll: () => Promise<StudentTableWithGuardian[]>;
 }
 
 export class StudentRepository implements IStudentRepository {
+  async getAll(): Promise<StudentTableWithGuardian[]> {
+    const students = await db('student')
+      .select('student.*', 'guardian.name as guardian_name', 'guardian.phone as guardian_phone')
+      .leftJoin('guardian', 'student.guardian_id', 'guardian.id');
+
+    return students;
+  }
+
   async saveOne(student: Student) {
     const studentData = {
       name: student.name,

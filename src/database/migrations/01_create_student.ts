@@ -7,7 +7,7 @@ export async function up(knex: Knex) {
     table.string('name').notNullable();
     table.string('phone').nullable();
     table.string('email').nullable();
-    table.date('birthday').nullable();
+    table.date('birthday');
     table
       .enum('gender', [Genders.Male, Genders.Female, Genders.Other])
       .notNullable()

@@ -7,7 +7,8 @@
     "build": "tsc",
     "test": "jest",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
-    "knex:seed": "knex --knexfile knexfile.ts seed:run"
+    "knex:seed": "knex --knexfile knexfile.ts seed:run",
+    "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback --all"
   },
   "engines": {
     "node": "22"

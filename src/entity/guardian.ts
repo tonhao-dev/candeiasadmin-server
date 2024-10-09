@@ -35,14 +35,14 @@ class Guardian {
   }
 
   private static validateName(guardianDTO?: IGuardianDTO) {
-    if (!guardianDTO || guardianDTO.name.length === 0)
+    if (!guardianDTO || !guardianDTO.name || guardianDTO.name.length === 0)
       return { hasError: true, message: 'Nome é obrigatório' };
 
     return { hasError: false, message: '' };
   }
 
   private static validatePhone(guardianDTO?: IGuardianDTO) {
-    if (!guardianDTO || guardianDTO.phone.length === 0)
+    if (!guardianDTO || !guardianDTO.phone || guardianDTO.phone.length === 0)
       return { hasError: true, message: 'Telefone é obrigatório' };
 
     return { hasError: false, message: '' };

@@ -1,12 +1,19 @@
 import { Request, Response } from 'express';
 import { IResponseModel } from '../types/response';
 import { StudentService } from '../service/StudentService';
+import { Student } from '../entity/student';
 
 class StudentController {
   private studentService: StudentService;
 
   constructor({ studentService } = { studentService: new StudentService() }) {
     this.studentService = studentService;
+  }
+
+  async getAll(_: Request, response: Response<IResponseModel<Student[]>>) {
+    const result = await this.studentService.getAll();
+
+    return response.json(result);
   }
 
   async create(request: Request, response: Response<IResponseModel>) {
