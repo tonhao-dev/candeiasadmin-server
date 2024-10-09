@@ -8,7 +8,8 @@
     "test": "jest",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
-    "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback --all"
+    "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback --all",
+    "prepare": "husky"
   },
   "engines": {
     "node": "22"
@@ -27,6 +28,7 @@
     "@types/supertest": "^6.0.2",
     "eslint": "^9.10.0",
     "globals": "^15.9.0",
+    "husky": "^9.1.6",
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
     "supertest": "^7.0.0",
