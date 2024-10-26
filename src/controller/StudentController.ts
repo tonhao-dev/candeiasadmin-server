@@ -16,6 +16,16 @@ class StudentController {
     return response.json(result);
   }
 
+  async getOne(request: Request, response: Response<IResponseModel<Record>>) {
+    const result = await this.studentService.getOne(request.params.id);
+
+    if (result.validations.length > 0) {
+      return response.status(400).json(result);
+    }
+
+    return response.json(result);
+  }
+
   async create(request: Request, response: Response<IResponseModel>) {
     const result = await this.studentService.create(request.body);
 

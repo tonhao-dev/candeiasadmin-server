@@ -27,3 +27,7 @@ Content-Type: application/json
   }
 }
 
+###
+
+GET http://localhost:5000/student/d4d4bddf-623a-4903-8827-8511347cc1bb
+Content-Type: application/json

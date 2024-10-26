@@ -12,6 +12,24 @@ class StudentService {
     this.repository = repository;
   }
 
+  async getOne(id: string): Promise<IResponseModel<Record>> {
+    const student = await this.repository.getOne(id);
+
+    if (!student) {
+      return {
+        message: 'O ID do estudante não foi encontrado.',
+        result: null,
+        validations: [],
+      };
+    }
+
+    return {
+      message: '',
+      result: new Record(student),
+      validations: [],
+    };
+  }
+
   async getAll(): Promise<IResponseModel<Record[]>> {
     const students = await this.repository.getAll();
     const records = students.map(student => new Record(student));
