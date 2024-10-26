@@ -55,4 +55,5 @@ export interface StudentList extends StudentTable {
   belt_type_code: string | null;
   belt_type_range_start_in_years: number | null;
   belt_type_range_end_in_years: number | null;
+  center_name: string | null;
 }

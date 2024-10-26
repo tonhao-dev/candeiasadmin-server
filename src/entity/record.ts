@@ -34,7 +34,7 @@ export class Record {
       year_of_last_belt_promotion: student.year_of_last_belt_promotion,
       trained_in_a_different_group: student.trained_in_a_different_group,
       first_capoeira_teacher: student.first_capoeira_teacher,
-      center_id: student.center_id,
+      center_name: student.center_name,
       current_teacher: student.current_teacher,
     };
   }

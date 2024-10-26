@@ -21,11 +21,13 @@ export class StudentRepository implements IStudentRepository {
         'belt_type.name as belt_type_name',
         'belt_type.code as belt_type_code',
         'belt_type.range_start_in_years as belt_type_range_start_in_years',
-        'belt_type.range_end_in_years as belt_type_range_end_in_years'
+        'belt_type.range_end_in_years as belt_type_range_end_in_years',
+        'center.name as center_name'
       )
       .leftJoin('guardian', 'student.guardian_id', 'guardian.id')
       .leftJoin('belt', 'student.belt_id', 'belt.id')
-      .leftJoin('belt_type', 'belt.belt_type_code', 'belt_type.code');
+      .leftJoin('belt_type', 'belt.belt_type_code', 'belt_type.code')
+      .leftJoin('center', 'student.center_id', 'center.id');
 
     console.log({ students });
 
