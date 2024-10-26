@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { IResponseModel } from '../types/response';
 import { StudentService } from '../service/StudentService';
-import { Student } from '../entity/student';
+import { Record } from '../entity/record';
 
 class StudentController {
   private studentService: StudentService;
@@ -10,7 +10,7 @@ class StudentController {
     this.studentService = studentService;
   }
 
-  async getAll(_: Request, response: Response<IResponseModel<Student[]>>) {
+  async getAll(_: Request, response: Response<IResponseModel<Record[]>>) {
     const result = await this.studentService.getAll();
 
     return response.json(result);
