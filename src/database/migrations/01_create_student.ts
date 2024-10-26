@@ -25,7 +25,7 @@ export async function up(knex: Knex) {
       ])
       .notNullable()
       .defaultTo(Race.NotDeclared);
-    table.enum('status', [Status.Active, Status.Inactive]).notNullable().defaultTo(Status.Inactive);
+    table.enum('status', [Status.Active, Status.Inactive]).notNullable().defaultTo(Status.Active);
     table.string('email').nullable();
     table.string('address').nullable();
     table.string('phone').nullable();
