@@ -21,20 +21,9 @@ export class StudentRepository implements IStudentRepository {
     const studentData = {
       name: student.name,
       birthday: new Date(student.birthday),
-      phone: student.phone,
       gender: student.gender,
-      nickname: student.nickname,
-      is_pwd: student.is_pwd,
-      race: student.race,
-      status: student.status,
+      phone: student.phone,
       email: student.email,
-      address: student.address,
-      facebook: student.facebook,
-      instagram: student.instagram,
-      tiktok: student.tiktok,
-      job: student.job,
-      education_level: student.education_level,
-      course: student.course,
     };
 
     if (!student.guardian) {
