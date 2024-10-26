@@ -51,6 +51,36 @@ export class StudentRepository implements IStudentRepository {
     return id;
   }
 
+  async updateOne(id: string, student: Student) {
+    const studentData = {
+      name: student.name,
+      phone: student.phone,
+      email: student.email,
+      gender: student.gender,
+      birthday: new Date(student.birthday),
+      updated_at: new Date(),
+      nickname: student.nickname,
+      is_pwd: student.is_pwd,
+      race: student.race,
+      status: student.status,
+      address: student.address,
+      facebook: student.facebook,
+      instagram: student.instagram,
+      tiktok: student.tiktok,
+      job: student.job,
+      education_level: student.education_level,
+      course: student.course,
+      year_start_capoeira: student.year_start_capoeira,
+      effective_capoeira_training_time: student.effective_capoeira_training_time,
+      year_of_last_belt_promotion: student.year_of_last_belt_promotion,
+      trained_in_a_different_group: student.trained_in_a_different_group,
+      first_capoeira_teacher: student.first_capoeira_teacher,
+      current_teacher: student.current_teacher,
+    };
+
+    await db('student').where('id', id).update(studentData);
+  }
+
   private _buildStudentQuery() {
     return db('student')
       .select(
