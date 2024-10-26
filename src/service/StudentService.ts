@@ -44,6 +44,7 @@ class StudentService {
   private mapToStudent(student: StudentTableWithGuardian): Student {
     return new Student(
       new StudentDTO({
+        id: student.id,
         name: student.name,
         birthday: student.birthday,
         gender: student.gender,

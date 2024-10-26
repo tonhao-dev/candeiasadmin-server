@@ -6,6 +6,7 @@ import { ISODate } from '../types/date';
 import { IGuardianDTO } from './guardian';
 
 interface IStudentDTO {
+  id?: string;
   name: string;
   birthday: ISODate | Date;
   gender: Genders;
@@ -23,9 +24,18 @@ interface IStudentDTO {
   job?: string | null;
   education_level?: string | null;
   course?: string | null;
+  belt_id?: string | null;
+  year_start_capoeira?: number | null;
+  effective_capoeira_training_time?: number | null;
+  year_of_last_belt_promotion?: number | null;
+  trained_in_a_different_group?: string | null;
+  first_capoeira_teacher?: string | null;
+  center_id?: string | null;
+  current_teacher?: string | null;
 }
 
 export class StudentDTO implements IStudentDTO {
+  public id?: string;
   public name: string;
   public birthday: ISODate;
   public gender: Genders = Genders.Other;
@@ -43,27 +53,44 @@ export class StudentDTO implements IStudentDTO {
   public job?: string | null;
   public education_level?: string | null;
   public course?: string | null;
+  public belt_id?: string | null;
+  public year_start_capoeira?: number | null;
+  public effective_capoeira_training_time?: number | null;
+  public year_of_last_belt_promotion?: number | null;
+  public trained_in_a_different_group?: string | null;
+  public first_capoeira_teacher?: string | null;
+  public center_id?: string | null;
+  public current_teacher?: string | null;
 
   constructor(studentDTO: IStudentDTO) {
+    this.id = studentDTO.id;
     this.name = studentDTO.name;
     this.birthday =
       typeof studentDTO.birthday === 'string'
         ? studentDTO.birthday
         : studentDTO.birthday.toISOString();
-    this.phone = studentDTO.phone ?? undefined;
+    this.phone = studentDTO.phone ?? '';
     this.gender = studentDTO.gender;
-    this.nickname = studentDTO.nickname ?? undefined;
+    this.nickname = studentDTO.nickname ?? '';
     this.is_pwd = studentDTO.is_pwd;
     this.race = studentDTO.race;
     this.status = studentDTO.status;
-    this.email = studentDTO.email ?? undefined;
-    this.address = studentDTO.address ?? undefined;
-    this.facebook = studentDTO.facebook ?? undefined;
-    this.instagram = studentDTO.instagram ?? undefined;
-    this.tiktok = studentDTO.tiktok ?? undefined;
-    this.job = studentDTO.job ?? undefined;
-    this.education_level = studentDTO.education_level ?? undefined;
-    this.course = studentDTO.course ?? undefined;
+    this.email = studentDTO.email ?? '';
+    this.address = studentDTO.address ?? '';
+    this.facebook = studentDTO.facebook ?? '';
+    this.instagram = studentDTO.instagram ?? '';
+    this.tiktok = studentDTO.tiktok ?? '';
+    this.job = studentDTO.job ?? '';
+    this.education_level = studentDTO.education_level ?? '';
+    this.course = studentDTO.course ?? '';
+    this.belt_id = studentDTO.belt_id ?? '';
+    this.year_start_capoeira = studentDTO.year_start_capoeira ?? 0;
+    this.effective_capoeira_training_time = studentDTO.effective_capoeira_training_time ?? 0;
+    this.year_of_last_belt_promotion = studentDTO.year_of_last_belt_promotion ?? 0;
+    this.trained_in_a_different_group = studentDTO.trained_in_a_different_group ?? '';
+    this.first_capoeira_teacher = studentDTO.first_capoeira_teacher ?? '';
+    this.center_id = studentDTO.center_id ?? '';
+    this.current_teacher = studentDTO.current_teacher ?? '';
 
     if (!studentDTO.guardian || new Guardian(studentDTO.guardian).validation.hasError) return;
 

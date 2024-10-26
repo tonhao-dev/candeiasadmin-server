@@ -8,6 +8,7 @@ import { Race } from '../enum/race';
 import { Status } from '../enum/status';
 
 class Student {
+  public id?: string = '';
   public name: string = '';
   public birthday: ISODate = '';
   public gender: Genders = Genders.Other;
@@ -26,6 +27,14 @@ class Student {
   public job?: string | null;
   public education_level?: string | null;
   public course?: string | null;
+  public belt_id?: string | null;
+  public year_start_capoeira?: number | null;
+  public effective_capoeira_training_time?: number | null;
+  public year_of_last_belt_promotion?: number | null;
+  public trained_in_a_different_group?: string | null;
+  public first_capoeira_teacher?: string | null;
+  public center_id?: string | null;
+  public current_teacher?: string | null;
 
   constructor(studentDTO: StudentDTO) {
     const validations = Student.validate(studentDTO);
@@ -35,6 +44,7 @@ class Student {
       return;
     }
 
+    this.id = studentDTO.id;
     this.name = studentDTO.name;
     this.birthday = studentDTO.birthday;
     this.phone = studentDTO.phone;
@@ -51,6 +61,14 @@ class Student {
     this.job = studentDTO.job;
     this.education_level = studentDTO.education_level;
     this.course = studentDTO.course;
+    this.belt_id = studentDTO.belt_id;
+    this.year_start_capoeira = studentDTO.year_start_capoeira;
+    this.effective_capoeira_training_time = studentDTO.effective_capoeira_training_time;
+    this.year_of_last_belt_promotion = studentDTO.year_of_last_belt_promotion;
+    this.trained_in_a_different_group = studentDTO.trained_in_a_different_group;
+    this.first_capoeira_teacher = studentDTO.first_capoeira_teacher;
+    this.center_id = studentDTO.center_id;
+    this.current_teacher = studentDTO.current_teacher;
 
     if (new Guardian(studentDTO.guardian).validation.hasError) return;
 

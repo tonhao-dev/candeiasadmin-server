@@ -25,6 +25,14 @@ export interface StudentTable {
   job: string | null;
   education_level: string | null;
   course: string | null;
+  belt_id: UUID | null;
+  year_start_capoeira: number | null;
+  effective_capoeira_training_time: number | null;
+  year_of_last_belt_promotion: number | null;
+  trained_in_a_different_group: string | null;
+  first_capoeira_teacher: string | null;
+  center_id: UUID | null;
+  current_teacher: string | null;
 }
 
 export interface GuardianTable {
