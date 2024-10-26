@@ -1,18 +1,33 @@
 import { UUID } from 'crypto';
 import db from '../database/connection';
 import { Student } from '../entity/student';
-import { StudentTableWithGuardian } from '../types/studentTable';
+import { StudentList } from '../types/studentTable';
 
 export interface IStudentRepository {
   saveOne: (student: Student) => Promise<UUID>;
-  getAll: () => Promise<StudentTableWithGuardian[]>;
+  getAll: () => Promise<StudentList[]>;
 }
 
 export class StudentRepository implements IStudentRepository {
-  async getAll(): Promise<StudentTableWithGuardian[]> {
+  async getAll(): Promise<StudentList[]> {
     const students = await db('student')
-      .select('student.*', 'guardian.name as guardian_name', 'guardian.phone as guardian_phone')
-      .leftJoin('guardian', 'student.guardian_id', 'guardian.id');
+      .select(
+        'student.*',
+        'guardian.name as guardian_name',
+        'guardian.phone as guardian_phone',
+        'belt.name as belt_name',
+        'belt.title as belt_title',
+        'belt.color_hex_code as belt_color_hex_code',
+        'belt_type.name as belt_type_name',
+        'belt_type.code as belt_type_code',
+        'belt_type.range_start_in_years as belt_type_range_start_in_years',
+        'belt_type.range_end_in_years as belt_type_range_end_in_years'
+      )
+      .leftJoin('guardian', 'student.guardian_id', 'guardian.id')
+      .leftJoin('belt', 'student.belt_id', 'belt.id')
+      .leftJoin('belt_type', 'belt.belt_type_code', 'belt_type.code');
+
+    console.log({ students });
 
     return students;
   }

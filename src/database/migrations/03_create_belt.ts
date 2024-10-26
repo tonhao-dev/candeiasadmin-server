@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('id').primary().defaultTo(knex.fn.uuid());
     table.string('name').notNullable();
     table.string('title').notNullable();
-    table.string('colorHexCode').notNullable(); // #000000 or #000000,#ffffff using comma to separate
+    table.string('color_hex_code').notNullable(); // #000000 or #000000,#ffffff using comma to separate
     table
       .string('belt_type_code')
       .nullable()

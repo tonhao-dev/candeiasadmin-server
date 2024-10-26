@@ -45,7 +45,14 @@ export interface GuardianTable {
   deleted_at: Date | null;
 }
 
-export interface StudentTableWithGuardian extends StudentTable {
+export interface StudentList extends StudentTable {
   guardian_name: string;
   guardian_phone: string;
+  belt_name: string | null;
+  belt_title: string | null;
+  belt_color_hex_code: string | null;
+  belt_type_name: string | null;
+  belt_type_code: string | null;
+  belt_type_range_start_in_years: number | null;
+  belt_type_range_end_in_years: number | null;
 }

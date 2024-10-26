@@ -61,7 +61,6 @@ class Student {
     this.job = studentDTO.job;
     this.education_level = studentDTO.education_level;
     this.course = studentDTO.course;
-    this.belt_id = studentDTO.belt_id;
     this.year_start_capoeira = studentDTO.year_start_capoeira;
     this.effective_capoeira_training_time = studentDTO.effective_capoeira_training_time;
     this.year_of_last_belt_promotion = studentDTO.year_of_last_belt_promotion;

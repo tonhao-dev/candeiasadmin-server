@@ -5,8 +5,8 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('id').primary().defaultTo(knex.fn.uuid());
     table.string('code').index().unique().notNullable();
     table.string('name').notNullable();
-    table.integer('rangeStartInYears').notNullable();
-    table.integer('rangeEndInYears').notNullable();
+    table.integer('range_start_in_years').notNullable();
+    table.integer('range_end_in_years').notNullable();
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('deleted_at').defaultTo(null);

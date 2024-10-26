@@ -9,7 +9,7 @@ declare module 'knex/types/tables' {
   interface Tables {
     student: StudentTable;
     guardian: GuardianTable;
-    beltType: BeltTypeTable;
+    belt_type: BeltTypeTable;
     belt: BeltTable;
     center: CenterTable;
   }

@@ -2,7 +2,7 @@ import { StudentDTO } from '../dto/student';
 import { Student } from '../entity/student';
 import { IResponseModel } from '../types/response';
 import { StudentRepository } from '../repository/student';
-import { StudentTableWithGuardian } from '../types/studentTable';
+import { StudentList } from '../types/studentTable';
 
 class StudentService {
   private repository: StudentRepository;
@@ -41,7 +41,7 @@ class StudentService {
     };
   }
 
-  private mapToStudent(student: StudentTableWithGuardian): Student {
+  private mapToStudent(student: StudentList): Student {
     return new Student(
       new StudentDTO({
         id: student.id,
