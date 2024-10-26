@@ -1,7 +1,7 @@
 import { UUID } from 'crypto';
 import db from '../database/connection';
 import { Student } from '../entity/student';
-import { StudentTableWithGuardian } from '../types/table';
+import { StudentTableWithGuardian } from '../types/studentTable';
 
 export interface IStudentRepository {
   saveOne: (student: Student) => Promise<UUID>;

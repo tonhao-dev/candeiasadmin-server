@@ -1,6 +1,6 @@
 import { knex } from 'knex';
 
-import { GuardianTable, StudentTable } from './table';
+import { GuardianTable, StudentTable } from './studentTable';
 
 declare module 'knex/types/tables' {
   interface Tables {

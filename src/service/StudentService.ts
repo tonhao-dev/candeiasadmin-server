@@ -2,7 +2,7 @@ import { StudentDTO } from '../dto/student';
 import { Student } from '../entity/student';
 import { IResponseModel } from '../types/response';
 import { StudentRepository } from '../repository/student';
-import { StudentTableWithGuardian } from '../types/table';
+import { StudentTableWithGuardian } from '../types/studentTable';
 
 class StudentService {
   private repository: StudentRepository;
