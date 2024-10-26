@@ -4,6 +4,7 @@ import { subYears } from 'date-fns';
 import { Genders } from '../../enum/gender';
 import { Race } from '../../enum/race';
 import { Status } from '../../enum/status';
+import { faker } from '@faker-js/faker/.';
 
 describe('GET /student', () => {
   it('Deve retornar uma lista de alunos', function () {
@@ -24,6 +25,8 @@ describe('POST /student', () => {
       .send({
         name: 'Luis Santiago',
         birthday: '2001-02-05T05:00:00.000Z',
+        gender: 1,
+        email: faker.internet.email(),
       })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
