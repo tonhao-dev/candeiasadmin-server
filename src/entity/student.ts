@@ -58,7 +58,12 @@ class Student {
   }
 
   private static validate(studentDTO: StudentDTO): string[] {
-    const allValidations = [this.validateBirthday, this.validateName, this.validateChildren];
+    const allValidations = [
+      this.validateBirthday,
+      this.validateName,
+      this.validateHasContact,
+      this.validateChildren,
+    ];
 
     const validationsMessages = allValidations.reduce((validations, validation) => {
       const { hasError, message } = validation(studentDTO);
@@ -103,6 +108,20 @@ class Student {
       return { hasError: true, message: 'Data de nascimento não pode ser maior que a data atual' };
     if (isBefore(new Date(studentDTO.birthday), new Date('1900-01-01')))
       return { hasError: true, message: 'Data de nascimento não pode ser menor que 01/01/1900' };
+
+    return { hasError: false, message: '' };
+  }
+
+  private static validateHasContact(studentDTO: StudentDTO): {
+    hasError: boolean;
+    message: string;
+  } {
+    const ageInYears = differenceInYears(new Date(), new Date(studentDTO.birthday));
+
+    if (ageInYears < 18) return { hasError: false, message: '' };
+
+    if (!studentDTO.phone && !studentDTO.email)
+      return { hasError: true, message: 'O aluno precisa ter ao menos um contato' };
 
     return { hasError: false, message: '' };
   }

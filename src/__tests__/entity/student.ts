@@ -1,13 +1,25 @@
 import { subYears } from 'date-fns';
 import { Student } from '../../entity/student';
 import { Genders } from '../../enum/gender';
+import { faker } from '@faker-js/faker';
 
 describe('Estudante', () => {
+  it('deve criar um aluno de maior inválido quando nenhuma informação de contato for passada', () => {
+    const student = new Student({
+      name: 'Aluno',
+      birthday: subYears(new Date(), 18).toISOString(),
+      gender: Genders.Male,
+    });
+
+    expect(student.validation.hasError).toBe(true);
+  });
+
   it('deve criar um aluno de maior válido quando todas suas informações forem passadas', () => {
     const student = new Student({
       name: 'Aluno',
       birthday: subYears(new Date(), 18).toISOString(),
       gender: Genders.Male,
+      email: faker.internet.email(),
     });
 
     expect(student.validation.hasError).toBe(false);
