@@ -29,8 +29,6 @@ export class StudentRepository implements IStudentRepository {
       .leftJoin('belt_type', 'belt.belt_type_code', 'belt_type.code')
       .leftJoin('center', 'student.center_id', 'center.id');
 
-    console.log({ students });
-
     return students;
   }
 
