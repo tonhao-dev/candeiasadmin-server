@@ -8,7 +8,8 @@ Content-Type: application/json
 {
   "name": "Luis Antonio",
   "birthday": "2001-02-05T05:00:00.000Z",
-  "gender": 1
+  "gender": 1,
+  "email": "luis.developer.ac@gmail.com"
 }
 
 ###
@@ -26,25 +27,3 @@ Content-Type: application/json
   }
 }
 
-###
-
-POST http://localhost:5000/student
-Content-Type: application/json
-
-{
-  "name": "Maria Clara",
-  "birthday": "2003-08-15T05:00:00.000Z",
-  "gender": 2,
-  "is_pwd": false,
-  "race": 3,
-  "status": 1,
-  "email": "maria.clara@example.com",
-  "address": "123 Main St, Anytown, USA",
-  "phone": "1234567890",
-  "facebook": "maria.clara",
-  "instagram": "maria.clara",
-  "tiktok": "maria.clara",
-  "job": "Student",
-  "education_level": "High School",
-  "course": "Science"
-}
