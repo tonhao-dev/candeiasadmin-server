@@ -1,22 +1,22 @@
 import { UUID } from 'crypto';
 import db from '../database/connection';
 import { Student } from '../entity/student';
-import { StudentList } from '../types/studentTable';
+import { StudentRecord } from '../types/studentTable';
 
 export interface IStudentRepository {
   saveOne: (student: Student) => Promise<UUID>;
-  getAll: () => Promise<StudentList[]>;
-  getOne: (id: string) => Promise<StudentList>;
+  getAll: () => Promise<StudentRecord[]>;
+  getOne: (id: string) => Promise<StudentRecord>;
 }
 
 export class StudentRepository implements IStudentRepository {
-  async getOne(id: string): Promise<StudentList> {
+  async getOne(id: string): Promise<StudentRecord> {
     const student = await this._buildStudentQuery().where('student.id', id).first();
 
     return student;
   }
 
-  async getAll(): Promise<StudentList[]> {
+  async getAll(): Promise<StudentRecord[]> {
     const students = await this._buildStudentQuery();
 
     return students;

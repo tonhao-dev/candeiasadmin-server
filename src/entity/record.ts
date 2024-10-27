@@ -1,7 +1,7 @@
-import { StudentList } from '../types/studentTable';
+import { StudentRecord } from '../types/studentTable';
 
 export class Record {
-  constructor(student: StudentList) {
+  constructor(student: StudentRecord) {
     return {
       id: student.id,
       name: student.name,

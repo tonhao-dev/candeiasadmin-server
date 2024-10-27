@@ -45,7 +45,7 @@ export interface GuardianTable {
   deleted_at: Date | null;
 }
 
-export interface StudentList extends StudentTable {
+export interface StudentRecord extends StudentTable {
   guardian_name: string;
   guardian_phone: string;
   belt_name: string | null;
