@@ -9,7 +9,7 @@ export interface StudentTable {
   phone: string | null;
   email: string | null;
   gender: Genders;
-  birthday: Date;
+  birthday: string;
   guardian_id: UUID;
   created_at: Date;
   updated_at: Date;
