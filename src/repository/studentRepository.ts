@@ -25,7 +25,7 @@ export class StudentRepository implements IStudentRepository {
   async saveOne(student: Student) {
     const studentData = {
       name: student.name,
-      birthday: new Date(student.birthday),
+      birthday: student.birthday,
       gender: student.gender,
       phone: student.phone,
       email: student.email,
@@ -51,14 +51,13 @@ export class StudentRepository implements IStudentRepository {
     return id;
   }
 
-  async updateOne(id: string, student: Student) {
+  async updateOne(id: UUID, student: Student) {
     const studentData = {
       name: student.name,
       phone: student.phone,
       email: student.email,
       gender: student.gender,
-      birthday: new Date(student.birthday),
-      updated_at: new Date(),
+      birthday: student.birthday,
       nickname: student.nickname,
       is_pwd: student.is_pwd,
       race: student.race,
@@ -75,7 +74,6 @@ export class StudentRepository implements IStudentRepository {
       year_of_last_belt_promotion: student.year_of_last_belt_promotion,
       trained_in_a_different_group: student.trained_in_a_different_group,
       first_capoeira_teacher: student.first_capoeira_teacher,
-      current_teacher: student.current_teacher,
     };
 
     await db('student').where('id', id).update(studentData);
