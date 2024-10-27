@@ -8,5 +8,6 @@ const studentController = new StudentController();
 routes.get('/student', studentController.getAll.bind(studentController));
 routes.get('/student/:id', studentController.getOne.bind(studentController));
 routes.post('/student', studentController.create.bind(studentController));
+routes.patch('/student/:id', studentController.update.bind(studentController));
 
 export { routes };

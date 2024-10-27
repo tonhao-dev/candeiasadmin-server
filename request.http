@@ -18,12 +18,12 @@ POST http://localhost:5000/student
 Content-Type: application/json
 
 {
-  "name": "Ezequiel da Silva Soares",
+  "name": "Ezequiel Soares da Silva",
   "birthday": "2001-02-05T05:00:00.000Z",
   "gender": 1,
   "guardian": {
-    "name": "Tonhão da Silva Junior",
-    "phone": "11999999999"
+    "name": "Tonhão da Silva",
+    "phone": "68992065657"
   }
 }
 
@@ -31,3 +31,33 @@ Content-Type: application/json
 
 GET http://localhost:5000/student/d4d4bddf-623a-4903-8827-8511347cc1bb
 Content-Type: application/json
+
+###
+
+PATCH http://localhost:5000/student/d4d4bddf-623a-4903-8827-8511347cc1bb
+Content-Type: application/json
+
+{
+  "name": "Luís Antônio Lima Santiago",
+  "phone": "68992065657",
+  "email": "luis.developer.ac@gmail.com",
+  "gender": 1,
+  "birthday": "2001-02-05T05:00:00.000Z",
+  "updated_at": "2024-10-26T18:48:0.000Z",
+  "nickname": "Tonhao",
+  "is_pwd": false,
+  "race": 3,
+  "status": 1,
+  "address": "Rua muito engraçada",
+  "facebook": "luis_santiago",
+  "instagram": "tonhao.dev",
+  "tiktok": "tonhao.dev",
+  "job": "Desenvolvimento de Software",
+  "education_level": "Superior Incompleto",
+  "course": "Tecnologia em Sistemas para a Internet",
+  "year_start_capoeira": 2017,
+  "effective_capoeira_training_time": 4,
+  "year_of_last_belt_promotion": 2024,
+  "trained_in_a_different_group": false,
+  "first_capoeira_teacher": "Professor Alladin"
+}

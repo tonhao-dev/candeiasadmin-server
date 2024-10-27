@@ -1,9 +1,8 @@
-import { StudentDTO } from '../dto/student';
+import { StudentDTO } from './../dto/student';
 import { Student } from '../entity/student';
 import { Record } from '../entity/record';
 import { IResponseModel } from '../types/response';
-import { StudentRepository } from '../repository/student';
-import { StudentList } from '../types/studentTable';
+import { StudentRepository } from '../repository/studentRepository';
 
 class StudentService {
   private repository: StudentRepository;
@@ -57,6 +56,36 @@ class StudentService {
     return {
       message: '',
       result: String(id),
+      validations: [],
+    };
+  }
+
+  async update(id: string, studentDTO: StudentDTO): Promise<IResponseModel<string>> {
+    const studentExists = await this.repository.getOne(id);
+
+    if (!studentExists) {
+      return {
+        message: 'O ID do estudante não foi encontrado.',
+        result: null,
+        validations: [],
+      };
+    }
+
+    const student = new Student(studentDTO);
+
+    if (student.validation.hasError) {
+      return {
+        message: student.validation.message,
+        result: null,
+        validations: student.validation.validations,
+      };
+    }
+
+    await this.repository.updateOne(id, student);
+
+    return {
+      message: '',
+      result: id,
       validations: [],
     };
   }

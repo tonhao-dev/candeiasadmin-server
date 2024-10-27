@@ -35,6 +35,16 @@ class StudentController {
 
     return response.json(result);
   }
+
+  async update(request: Request, response: Response<IResponseModel>) {
+    const result = await this.studentService.update(request.params.id, request.body);
+
+    if (result.validations.length > 0) {
+      return response.status(400).json(result);
+    }
+
+    return response.json(result);
+  }
 }
 
 export { StudentController };
