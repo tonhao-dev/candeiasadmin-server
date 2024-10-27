@@ -1,3 +1,4 @@
+import { UUID } from 'crypto';
 import { Guardian } from '../entity/guardian';
 import { Genders } from '../enum/gender';
 import { Race } from '../enum/race';
@@ -6,7 +7,7 @@ import { ISODate } from '../types/date';
 import { IGuardianDTO } from './guardian';
 
 interface IStudentDTO {
-  id?: string;
+  id?: UUID;
   name: string;
   birthday: ISODate | Date;
   gender: Genders;
@@ -35,7 +36,7 @@ interface IStudentDTO {
 }
 
 export class StudentDTO implements IStudentDTO {
-  public id?: string;
+  public id?: UUID;
   public name: string;
   public birthday: ISODate;
   public gender: Genders = Genders.Other;
@@ -58,7 +59,6 @@ export class StudentDTO implements IStudentDTO {
   public year_of_last_belt_promotion?: number | null;
   public trained_in_a_different_group?: string | null;
   public first_capoeira_teacher?: string | null;
-  public center_id?: string | null;
   public current_teacher?: string | null;
 
   constructor(studentDTO: IStudentDTO) {
@@ -87,7 +87,6 @@ export class StudentDTO implements IStudentDTO {
     this.year_of_last_belt_promotion = studentDTO.year_of_last_belt_promotion ?? 0;
     this.trained_in_a_different_group = studentDTO.trained_in_a_different_group ?? '';
     this.first_capoeira_teacher = studentDTO.first_capoeira_teacher ?? '';
-    this.center_id = studentDTO.center_id ?? '';
     this.current_teacher = studentDTO.current_teacher ?? '';
 
     if (!studentDTO.guardian || new Guardian(studentDTO.guardian).validation.hasError) return;
