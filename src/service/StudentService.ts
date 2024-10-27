@@ -3,6 +3,7 @@ import { Student } from '../entity/student';
 import { Record } from '../entity/record';
 import { IResponseModel } from '../types/response';
 import { StudentRepository } from '../repository/studentRepository';
+import { UUID } from 'crypto';
 
 class StudentService {
   private repository: StudentRepository;
@@ -60,7 +61,7 @@ class StudentService {
     };
   }
 
-  async update(id: string, studentDTO: StudentDTO): Promise<IResponseModel<string>> {
+  async update(id: UUID, studentDTO: StudentDTO): Promise<IResponseModel<string>> {
     const studentExists = await this.repository.getOne(id);
 
     if (!studentExists) {
@@ -71,7 +72,12 @@ class StudentService {
       };
     }
 
-    const student = new Student(studentDTO);
+    const student = new Student(
+      new StudentDTO({
+        ...studentExists,
+        ...studentDTO,
+      })
+    );
 
     if (student.validation.hasError) {
       return {
