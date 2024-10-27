@@ -1,5 +1,7 @@
+import { UUID } from 'crypto';
+
 export interface CenterTable {
-  id: string;
+  id: UUID;
   name: string;
   address: string;
   longitude?: number;

@@ -1,5 +1,7 @@
+import { UUID } from 'crypto';
+
 export interface BeltTable {
-  id: string;
+  id: UUID;
   name: string;
   title: string;
   color_hex_code: string; // #000000 or #000000,#ffffff using comma to separate

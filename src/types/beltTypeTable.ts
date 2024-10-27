@@ -1,5 +1,7 @@
+import { UUID } from 'crypto';
+
 export interface BeltTypeTable {
-  id: string;
+  id: UUID;
   code: string;
   name: string;
   range_start_in_years: number;
