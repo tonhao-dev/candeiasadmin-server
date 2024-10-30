@@ -17,9 +17,9 @@ class StudentService {
 
     if (!student) {
       return {
-        message: 'O ID do estudante não foi encontrado.',
+        message: 'O estudante não foi encontrado.',
         result: null,
-        validations: [],
+        validations: ['O estudante não foi encontrado.'],
       };
     }
 
@@ -66,9 +66,9 @@ class StudentService {
 
     if (!studentExists) {
       return {
-        message: 'O ID do estudante não foi encontrado.',
+        message: 'O estudante não foi encontrado.',
         result: null,
-        validations: [],
+        validations: ['O estudante não foi encontrado.'],
       };
     }
 

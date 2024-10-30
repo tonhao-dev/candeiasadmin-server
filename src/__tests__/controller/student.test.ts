@@ -24,8 +24,8 @@ describe('POST /student', () => {
       .post('/student')
       .send({
         name: 'Luis Santiago',
-        birthday: '2001-02-05T05:00:00.000Z',
-        gender: 1,
+        birthday: subYears(new Date(), 20).toISOString(),
+        gender: Genders.Male,
         email: faker.internet.email(),
       })
       .set('Accept', 'application/json')
@@ -41,23 +41,23 @@ describe('POST /student', () => {
       .post('/student')
       .send({
         name: 'Maria Clara',
-        birthday: subYears(new Date(), 10),
+        birthday: subYears(new Date(), 10).toISOString(),
         gender: Genders.Female,
         is_pwd: false,
         race: Race.Black,
         status: Status.Active,
-        email: 'maria.clara@example.com',
-        address: '123 Main St, Anytown, USA',
-        phone: '1234567890',
+        email: faker.internet.email(),
+        address: faker.location.streetAddress(),
+        phone: faker.phone.number(),
         facebook: 'maria.clara',
         instagram: 'maria.clara',
         tiktok: 'maria.clara',
-        job: 'Student',
+        job: faker.person.bio(),
         education_level: 'High School',
         course: 'Science',
         guardian: {
-          name: 'Guardião da Maria Clara',
-          phone: '11999999999',
+          name: faker.person.fullName(),
+          phone: faker.phone.number(),
         },
       })
       .set('Accept', 'application/json')
@@ -67,31 +67,85 @@ describe('POST /student', () => {
       });
   });
 
-  it('Deve retornar 400 se o nome não for informado', function () {
+  it('Deve retornar 400 se o nome de um aluno de maior não for informado', function () {
     return request(app)
       .post('/student')
       .send({
-        birthday: '2001-02-05T05:00:00.000Z',
+        birthday: subYears(new Date(), 20),
       })
       .set('Accept', 'application/json')
       .expect(400);
   });
 
-  it('Deve criar um aluno de menor', function () {
+  it('Deve criar um aluno de menor com sucesso', function () {
     return request(app)
       .post('/student')
       .set('Accept', 'application/json')
       .send({
         name: 'Luis Santiago',
-        birthday: '2024-02-05T05:00:00.000Z',
+        birthday: subYears(new Date(), 10),
         guardian: {
-          name: 'João da Silva',
-          phone: '11999999999',
+          name: faker.person.fullName(),
+          phone: faker.phone.number(),
         },
       })
       .expect(200)
       .then(response => {
         expect(response.body.result).toBeDefined();
       });
+  });
+
+  it('Deve retornar 400 quando o nome do responsável do aluno criança não for informado', function () {
+    return request(app)
+      .post('/student')
+      .send({
+        name: 'Luis Santiago',
+        birthday: subYears(new Date(), 20),
+        guardian: {
+          phone: faker.phone.number(),
+        },
+      })
+      .set('Accept', 'application/json')
+      .expect(400);
+  });
+
+  it('Deve retornar 400 se o telefone do responsável do aluno criança não for informado', function () {
+    return request(app)
+      .post('/student')
+      .send({
+        name: 'Luis Santiago',
+        birthday: subYears(new Date(), 10),
+        guardian: {
+          name: faker.person.fullName(),
+        },
+      })
+      .set('Accept', 'application/json')
+      .expect(400);
+  });
+});
+
+describe('GET /student/:id', () => {
+  it('Deve retornar as informações de um aluno que acabara de ser criado', function () {
+    return request(app)
+      .post('/student')
+      .send({
+        name: 'Luis Santiago',
+        birthday: subYears(new Date(), 20).toISOString(),
+        gender: Genders.Male,
+        email: faker.internet.email(),
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .then(response => {
+        expect(response.body.result).toBeDefined();
+        request(app).get(`/student/${response.body.result}`).expect(200);
+      });
+  });
+
+  it('Deve retornar 400 se o ID do aluno não for encontrado', function () {
+    return request(app)
+      .get('/student/00000000-0000-0000-0000-000000000000')
+      .set('Accept', 'application/json')
+      .expect(400);
   });
 });
