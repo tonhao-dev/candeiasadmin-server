@@ -40,7 +40,7 @@ export class StudentDTO implements IStudentDTO {
   public name: string;
   public birthday: ISODate;
   public gender: Genders = Genders.Other;
-  public phone?: string;
+  public phone?: string | null;
   public guardian?: IGuardianDTO;
   public nickname?: string | null;
   public is_pwd?: boolean = false;
@@ -68,26 +68,26 @@ export class StudentDTO implements IStudentDTO {
       typeof studentDTO.birthday === 'string'
         ? studentDTO.birthday
         : studentDTO.birthday.toISOString();
-    this.phone = studentDTO.phone ?? '';
+    this.phone = studentDTO.phone ?? null;
     this.gender = studentDTO.gender;
-    this.nickname = studentDTO.nickname ?? '';
+    this.nickname = studentDTO.nickname ?? null;
     this.is_pwd = studentDTO.is_pwd;
     this.race = studentDTO.race;
     this.status = studentDTO.status;
-    this.email = studentDTO.email ?? '';
-    this.address = studentDTO.address ?? '';
-    this.facebook = studentDTO.facebook ?? '';
-    this.instagram = studentDTO.instagram ?? '';
-    this.tiktok = studentDTO.tiktok ?? '';
-    this.job = studentDTO.job ?? '';
-    this.education_level = studentDTO.education_level ?? '';
-    this.course = studentDTO.course ?? '';
-    this.year_start_capoeira = studentDTO.year_start_capoeira ?? 0;
-    this.effective_capoeira_training_time = studentDTO.effective_capoeira_training_time ?? 0;
-    this.year_of_last_belt_promotion = studentDTO.year_of_last_belt_promotion ?? 0;
-    this.trained_in_a_different_group = studentDTO.trained_in_a_different_group ?? '';
-    this.first_capoeira_teacher = studentDTO.first_capoeira_teacher ?? '';
-    this.current_teacher = studentDTO.current_teacher ?? '';
+    this.email = studentDTO.email ?? null;
+    this.address = studentDTO.address ?? null;
+    this.facebook = studentDTO.facebook ?? null;
+    this.instagram = studentDTO.instagram ?? null;
+    this.tiktok = studentDTO.tiktok ?? null;
+    this.job = studentDTO.job ?? null;
+    this.education_level = studentDTO.education_level ?? null;
+    this.course = studentDTO.course ?? null;
+    this.year_start_capoeira = studentDTO.year_start_capoeira ?? null;
+    this.effective_capoeira_training_time = studentDTO.effective_capoeira_training_time ?? null;
+    this.year_of_last_belt_promotion = studentDTO.year_of_last_belt_promotion ?? null;
+    this.trained_in_a_different_group = studentDTO.trained_in_a_different_group ?? null;
+    this.first_capoeira_teacher = studentDTO.first_capoeira_teacher ?? null;
+    this.current_teacher = studentDTO.current_teacher ?? null;
 
     if (!studentDTO.guardian || new Guardian(studentDTO.guardian).validation.hasError) return;
 

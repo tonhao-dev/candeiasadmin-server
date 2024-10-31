@@ -14,7 +14,7 @@ class Student {
   public birthday: ISODate = '';
   public gender: Genders = Genders.Other;
   public validation: ValidationError = new ValidationError();
-  public phone?: string;
+  public phone?: string | null;
   public guardian?: Guardian;
   public nickname?: string | null;
   public is_pwd?: boolean = false;
