@@ -61,3 +61,8 @@ Content-Type: application/json
   "trained_in_a_different_group": false,
   "first_capoeira_teacher": "Professor Alladin"
 }
+
+###
+
+DELETE http://localhost:5000/student/e6c9ed14-0d88-4131-9695-42e81dbd05ca
+Content-Type: application/json

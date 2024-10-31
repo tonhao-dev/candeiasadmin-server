@@ -11,13 +11,16 @@ export interface IStudentRepository {
 
 export class StudentRepository implements IStudentRepository {
   async getOne(id: string): Promise<StudentRecord> {
-    const student = await this._buildStudentQuery().where('student.id', id).first();
+    const student = await this._buildStudentQuery()
+      .where('student.deleted_at', null)
+      .where('student.id', id)
+      .first();
 
     return student;
   }
 
   async getAll(): Promise<StudentRecord[]> {
-    const students = await this._buildStudentQuery();
+    const students = await this._buildStudentQuery().where('student.deleted_at', null);
 
     return students;
   }
@@ -77,6 +80,10 @@ export class StudentRepository implements IStudentRepository {
     };
 
     await db('student').where('id', id).update(studentData);
+  }
+
+  async deleteOne(id: UUID) {
+    await db('student').where('id', id).update({ deleted_at: new Date() });
   }
 
   private _buildStudentQuery() {

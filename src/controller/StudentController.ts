@@ -46,6 +46,16 @@ class StudentController {
 
     return response.json(result);
   }
+
+  async delete(request: Request, response: Response<IResponseModel>) {
+    const result = await this.studentService.delete(request.params.id as UUID);
+
+    if (result.validations.length > 0) {
+      return response.status(400).json(result);
+    }
+
+    return response.json(result);
+  }
 }
 
 export { StudentController };

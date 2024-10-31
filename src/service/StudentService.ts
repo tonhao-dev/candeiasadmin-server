@@ -17,9 +17,9 @@ class StudentService {
 
     if (!student) {
       return {
-        message: 'O estudante não foi encontrado.',
+        message: 'O aluno não foi encontrado.',
         result: null,
-        validations: ['O estudante não foi encontrado.'],
+        validations: ['O aluno não foi encontrado.'],
       };
     }
 
@@ -66,9 +66,9 @@ class StudentService {
 
     if (!studentExists) {
       return {
-        message: 'O estudante não foi encontrado.',
+        message: 'O aluno não foi encontrado.',
         result: null,
-        validations: ['O estudante não foi encontrado.'],
+        validations: ['O aluno não foi encontrado.'],
       };
     }
 
@@ -92,6 +92,26 @@ class StudentService {
     return {
       message: '',
       result: id,
+      validations: [],
+    };
+  }
+
+  async delete(id: UUID): Promise<IResponseModel<string>> {
+    const studentExists = await this.repository.getOne(id);
+
+    if (!studentExists) {
+      return {
+        message: 'O aluno não foi encontrado.',
+        result: null,
+        validations: ['O aluno não foi encontrado.'],
+      };
+    }
+
+    await this.repository.deleteOne(id);
+
+    return {
+      message: '',
+      result: String(id),
       validations: [],
     };
   }
