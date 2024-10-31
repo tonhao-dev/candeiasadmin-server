@@ -7,20 +7,18 @@ import { Status } from '../../enum/status';
 import { faker } from '@faker-js/faker/.';
 
 describe('GET /student', () => {
-  it('Deve retornar uma lista de alunos', function () {
-    return request(app)
+  it('Deve retornar uma lista de alunos', async function () {
+    const response = await request(app)
       .get('/student')
       .set('Accept', 'application/json')
-      .expect(200)
-      .then(response => {
-        expect(response.body.result).toBeDefined();
-      });
+      .expect(200);
+    expect(response.body.result).toBeDefined();
   });
 });
 
 describe('POST /student', () => {
-  it('Deve criar um aluno de maior com apenas as informações obrigatórias', function () {
-    return request(app)
+  it('Deve criar um aluno de maior com apenas as informações obrigatórias', async function () {
+    const response = await request(app)
       .post('/student')
       .send({
         name: 'Luis Santiago',
@@ -30,14 +28,12 @@ describe('POST /student', () => {
       })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(200)
-      .then(response => {
-        expect(response.body.result).toBeDefined();
-      });
+      .expect(200);
+    expect(response.body.result).toBeDefined();
   });
 
-  it('Deve criar um aluno criança com todas as informações completas', function () {
-    return request(app)
+  it('Deve criar um aluno criança com todas as informações completas', async function () {
+    const response = await request(app)
       .post('/student')
       .send({
         name: 'Maria Clara',
@@ -61,10 +57,8 @@ describe('POST /student', () => {
         },
       })
       .set('Accept', 'application/json')
-      .expect(200)
-      .then(response => {
-        expect(response.body.result).toBeDefined();
-      });
+      .expect(200);
+    expect(response.body.result).toBeDefined();
   });
 
   it('Deve retornar 400 se o nome de um aluno de maior não for informado', function () {
@@ -77,8 +71,8 @@ describe('POST /student', () => {
       .expect(400);
   });
 
-  it('Deve criar um aluno de menor com sucesso', function () {
-    return request(app)
+  it('Deve criar um aluno de menor com sucesso', async function () {
+    const response = await request(app)
       .post('/student')
       .set('Accept', 'application/json')
       .send({
@@ -89,10 +83,8 @@ describe('POST /student', () => {
           phone: faker.phone.number(),
         },
       })
-      .expect(200)
-      .then(response => {
-        expect(response.body.result).toBeDefined();
-      });
+      .expect(200);
+    expect(response.body.result).toBeDefined();
   });
 
   it('Deve retornar 400 quando o nome do responsável do aluno criança não for informado', function () {
@@ -125,8 +117,8 @@ describe('POST /student', () => {
 });
 
 describe('GET /student/:id', () => {
-  it('Deve retornar as informações de um aluno que acabara de ser criado', function () {
-    return request(app)
+  it('Deve retornar as informações de um aluno que acabara de ser criado', async function () {
+    const response = await request(app)
       .post('/student')
       .send({
         name: 'Luis Santiago',
@@ -135,11 +127,9 @@ describe('GET /student/:id', () => {
         email: faker.internet.email(),
       })
       .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .then(response => {
-        expect(response.body.result).toBeDefined();
-        request(app).get(`/student/${response.body.result}`).expect(200);
-      });
+      .expect('Content-Type', /json/);
+    expect(response.body.result).toBeDefined();
+    request(app).get(`/student/${response.body.result}`).expect(200);
   });
 
   it('Deve retornar 400 se o ID do aluno não for encontrado', function () {
@@ -151,8 +141,8 @@ describe('GET /student/:id', () => {
 });
 
 describe('PATCH /student/:id', () => {
-  it('Deve atualizar as informações de um aluno', function () {
-    return request(app)
+  it('Deve atualizar as informações de um aluno', async function () {
+    const response = await request(app)
       .post('/student')
       .send({
         name: 'Luis Santiago',
@@ -161,16 +151,39 @@ describe('PATCH /student/:id', () => {
         email: faker.internet.email(),
       })
       .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .then(async response => {
-        const studentID = response.body.result;
-        await request(app).patch(`/student/${studentID}`).send({ name: 'Luis Antonio' });
-        request(app)
-          .get(`/student/${studentID}`)
-          .expect(200)
-          .then(response => {
-            expect(response.body.result.name).toBe('Luis Antonio');
-          });
+      .expect('Content-Type', /json/);
+    const studentID = response.body.result;
+    await request(app).patch(`/student/${studentID}`).send({ name: 'Luis Antonio' });
+    request(app)
+      .get(`/student/${studentID}`)
+      .expect(200)
+      .then(response_1 => {
+        expect(response_1.body.result.name).toBe('Luis Antonio');
       });
+  });
+});
+
+describe('DELETE /student/:id', () => {
+  it('Deve retornar 400 quando um aluno que acabou de ser criado for deletado', async function () {
+    const response = await request(app)
+      .post('/student')
+      .send({
+        name: 'Luis Santiago',
+        birthday: subYears(new Date(), 20).toISOString(),
+        gender: Genders.Male,
+        email: faker.internet.email(),
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/);
+    const studentID = response.body.result;
+    await request(app).delete(`/student/${studentID}`);
+    request(app).get(`/student/${studentID}`).expect(400);
+  });
+
+  it('Deve retornar 400 se o ID do aluno não for encontrado', function () {
+    return request(app)
+      .delete('/student/00000000-0000-0000-0000-000000000000')
+      .set('Accept', 'application/json')
+      .expect(400);
   });
 });
