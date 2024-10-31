@@ -149,3 +149,28 @@ describe('GET /student/:id', () => {
       .expect(400);
   });
 });
+
+describe('PATCH /student/:id', () => {
+  it('Deve atualizar as informações de um aluno', function () {
+    return request(app)
+      .post('/student')
+      .send({
+        name: 'Luis Santiago',
+        birthday: subYears(new Date(), 20).toISOString(),
+        gender: Genders.Male,
+        email: faker.internet.email(),
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .then(async response => {
+        const studentID = response.body.result;
+        await request(app).patch(`/student/${studentID}`).send({ name: 'Luis Antonio' });
+        request(app)
+          .get(`/student/${studentID}`)
+          .expect(200)
+          .then(response => {
+            expect(response.body.result.name).toBe('Luis Antonio');
+          });
+      });
+  });
+});
