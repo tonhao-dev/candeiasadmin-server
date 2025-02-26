@@ -25,6 +25,7 @@ Content-Type: application/json
   "name": "Ezequiel Soares da Silva",
   "birthday": "2001-02-05T05:00:00.000Z",
   "gender": 1,
+  "email": "luis.developer.ac@gmail.com",
   "guardian": {
     "name": "Tonhão da Silva",
     "phone": "68992065657"
@@ -33,12 +34,12 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:4000/student/f89697b7-fbd7-43e8-9ced-1e38e8e8dfb0
+GET http://localhost:4000/student/75f6f9c9-b862-4d91-9249-43f07d040230
 Content-Type: application/json
 
 ###
 
-PATCH http://localhost:4000/student/f89697b7-fbd7-43e8-9ced-1e38e8e8dfb0
+PATCH http://localhost:4000/student/4276407a-6ed2-43af-8717-993bbf6a36d1
 Content-Type: application/json
 
 {
