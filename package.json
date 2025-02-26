@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./dist/server.js",
     "dev": "nodemon ./src/server.ts",
-    "build": "tsup-node",
+    "build:tsup": "tsup-node",
+    "build": "tsc",
     "test": "jest",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
