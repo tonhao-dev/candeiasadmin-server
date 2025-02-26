@@ -27,4 +27,4 @@ RUN yarn install --production && \
   echo *.ts >> .yarnclean && \
   yarn autoclean --force && \
   yarn cache clean
-CMD ["node", "dist/index.js"]
+CMD ["yarn", "start"]
