@@ -4,7 +4,7 @@ import { subYears } from 'date-fns';
 import { Genders } from '../../enum/gender';
 import { Race } from '../../enum/race';
 import { Status } from '../../enum/status';
-import { faker } from '@faker-js/faker/.';
+import { faker } from '@faker-js/faker';
 
 describe('GET /student', () => {
   it('Deve retornar uma lista de alunos', async function () {
