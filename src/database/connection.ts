@@ -1,16 +1,14 @@
 import knex, { Knex } from 'knex';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { env } from '../env';
 
 const config: Knex.Config = {
   client: 'pg',
   connection: {
-    database: process.env.DATA_API_DB_NAME,
-    host: process.env.DATA_API_DB_SERVICE_HOST,
-    port: parseInt(process.env.DATA_API_DB_SERVICE_PORT || '5432', 10),
-    user: process.env.DATA_API_DB_USER || 'postgres',
-    password: process.env.DATA_API_DB_PASSWORD || 'postgres',
+    database: env.DATA_API_DB_NAME,
+    host: env.DATA_API_DB_SERVICE_HOST,
+    port: env.DATA_API_DB_SERVICE_PORT,
+    user: env.DATA_API_DB_USER,
+    password: env.DATA_API_DB_PASSWORD,
   },
 };
 
