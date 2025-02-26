@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  teste-postgres-compose:
+  postgres-compose:
     image: postgres
     environment:
       POSTGRES_PASSWORD: '12345'
@@ -10,15 +10,15 @@ services:
     networks:
       - postgres-compose-network
 
-  teste-pgadmin-compose:
-    image: dpage/pgadmin4
+  pgadmin-compose:
+    image: elestio/pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: 'luis.developer.ac@gmail.com'
       PGADMIN_DEFAULT_PASSWORD: '12345'
     ports:
-      - '5433:80'
+      - '8080:8080'
     depends_on:
-      - teste-postgres-compose
+      - postgres-compose
     networks:
       - postgres-compose-network
 
