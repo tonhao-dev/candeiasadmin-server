@@ -9,6 +9,9 @@ const config: Knex.Config = {
     port: env.DATA_API_DB_SERVICE_PORT,
     user: env.DATA_API_DB_USER,
     password: env.DATA_API_DB_PASSWORD,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
 };
 
