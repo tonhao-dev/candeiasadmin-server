@@ -67,7 +67,7 @@ node dist/index.js
 Iniciar usando docker:
 ```sh
 docker build -t candeiasadmin-server:0.0.1 .
-docker run -d --name candeiasadmin-server -p 3000:8080 candeiasadmin-server:0.0.1
+docker run -d --name candeiasadmin-server -p 4000:8080 candeiasadmin-server:0.0.1
 ```
 
 ---
