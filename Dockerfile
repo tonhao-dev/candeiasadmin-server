@@ -1,3 +1,4 @@
+# 1. --- Base ---
 # Use the official Node.js image as the base image
 FROM bitnami/node:22 AS base
 
@@ -5,8 +6,9 @@ FROM bitnami/node:22 AS base
 WORKDIR /usr/app
 
 # Default environment (build + run time)
-ARG NODE_ENV=production
+ARG NODE_ENV production
 ENV NODE_ENV=$NODE_ENV
+ENV PORT=8080
 
 # Expose the port the app runs on
 EXPOSE 8080
@@ -18,6 +20,8 @@ RUN yarn install --production=false
 # App source
 COPY . .
 
+
+# 2. --- Build and release ---
 FROM base
 RUN yarn build
 
