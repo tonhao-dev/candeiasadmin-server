@@ -23,6 +23,7 @@ Versões necessárias:
 ```bash
 Node >= v22.20.0
 Yarn >= 1.22.22
+Docker >= 27.5.1
 ```
 
 Instale o Yarn (caso ainda não esteja instalado):
@@ -49,10 +50,24 @@ Instale as dependências:
 yarn install
 ```
 
-Inicie a aplicação:
+Iniciar em modo de desenvolvedor:
 
 ```sh
-yarn start
+docker compose up
+yarn dev
+```
+
+Iniciar em modo de prod:
+
+```sh
+yarn build
+node dist/index.js
+```
+
+Iniciar usando docker:
+```sh
+docker build -t candeiasadmin-server:0.0.1 .
+docker run -d --name candeiasadmin-server -p 3000:8080 candeiasadmin-server:0.0.1
 ```
 
 ---
