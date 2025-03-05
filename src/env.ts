@@ -10,6 +10,9 @@ const envSchema = z.object({
   DATA_API_DB_SERVICE_PORT: z.coerce.number().int().min(1).max(65535),
   DATA_API_DB_USER: z.string().default('postgres'),
   DATA_API_DB_PASSWORD: z.string().default('postgres'),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  GOOGLE_CALLBACK_URL: z.string().url(),
 });
 
 export const env = envSchema.parse(process.env);

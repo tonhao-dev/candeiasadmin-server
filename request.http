@@ -25,7 +25,6 @@ Content-Type: application/json
   "name": "Ezequiel Soares da Silva",
   "birthday": "2001-02-05T05:00:00.000Z",
   "gender": 1,
-  "email": "luis.developer.ac@gmail.com",
   "guardian": {
     "name": "Tonhão da Silva",
     "phone": "68992065657"
