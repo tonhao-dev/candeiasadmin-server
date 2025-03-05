@@ -5,7 +5,7 @@ export const GOOGLE_STRATEGY = new Strategy(
   {
     clientID: env.GOOGLE_CLIENT_ID,
     clientSecret: env.GOOGLE_CLIENT_SECRET,
-    callbackURL: env.GOOGLE_CALLBACK_URL,
+    callbackURL: env.API_URL + env.GOOGLE_CALLBACK_URL,
   },
   (accessToken, refreshToken, profile, done) => {
     console.log({

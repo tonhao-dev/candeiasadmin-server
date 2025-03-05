@@ -12,7 +12,8 @@ const envSchema = z.object({
   DATA_API_DB_PASSWORD: z.string().default('postgres'),
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
-  GOOGLE_CALLBACK_URL: z.string().url(),
+  GOOGLE_CALLBACK_URL: z.string(),
+  API_URL: z.string().url(),
 });
 
 export const env = envSchema.parse(process.env);
