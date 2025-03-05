@@ -1,5 +1,6 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
+import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 
 export default [
@@ -7,6 +8,7 @@ export default [
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  ...simpleImportSortPlugin.configs.recommended,
   {
     rules: {
       'no-unused-expressions': 'off',
@@ -55,6 +57,7 @@ export default [
       '@typescript-eslint/ban-ts-comment': 'off',
       'no-underscore-dangle': 'off',
       'react/jsx-no-bind': 'off',
+      'sort-imports': ['error', { ignoreDeclarationSort: true }],
     },
     overrides: [
       {
