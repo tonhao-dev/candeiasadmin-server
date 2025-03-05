@@ -12,6 +12,7 @@ export class Record {
         name: student.guardian_name,
         phone: student.guardian_phone,
       },
+      nickname: student.nickname,
       is_pwd: student.is_pwd,
       race: student.race,
       status: student.status,
