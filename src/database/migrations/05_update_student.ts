@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('trained_in_a_different_group').nullable();
     table.string('first_capoeira_teacher').nullable();
     table.uuid('center_id').nullable().references('id').inTable('center').onDelete('CASCADE');
-    table.uuid('current_teacher').nullable();
+    table.uuid('current_teacher_id').references('id').inTable('student').nullable();
   });
 }
 
@@ -22,6 +22,6 @@ export async function down(knex: Knex): Promise<void> {
     table.dropColumn('trained_in_a_different_group');
     table.dropColumn('first_capoeira_teacher');
     table.dropColumn('center_id');
-    table.dropColumn('current_teacher');
+    table.dropColumn('current_teacher_id');
   });
 }

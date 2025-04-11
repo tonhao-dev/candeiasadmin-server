@@ -63,7 +63,8 @@ Content-Type: application/json
   "effective_capoeira_training_time": 4,
   "year_of_last_belt_promotion": 2024,
   "trained_in_a_different_group": false,
-  "first_capoeira_teacher": "Professor Alladin"
+  "first_capoeira_teacher": "Professor Alladin",
+  "current_teacher_id": "904f0f70-5e2b-4855-917a-9ea32e4671f2"
 }
 
 ###

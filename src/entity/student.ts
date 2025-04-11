@@ -34,7 +34,7 @@ class Student {
   public trained_in_a_different_group?: string | null;
   public first_capoeira_teacher?: string | null;
   public center_id?: UUID | null;
-  public current_teacher?: string | null;
+  public current_teacher_id?: UUID | null;
 
   constructor(studentDTO: StudentDTO) {
     const validations = Student.validate(studentDTO);
@@ -66,7 +66,7 @@ class Student {
     this.year_of_last_belt_promotion = studentDTO.year_of_last_belt_promotion;
     this.trained_in_a_different_group = studentDTO.trained_in_a_different_group;
     this.first_capoeira_teacher = studentDTO.first_capoeira_teacher;
-    this.current_teacher = studentDTO.current_teacher;
+    this.current_teacher_id = studentDTO.current_teacher_id;
 
     if (new Guardian(studentDTO.guardian).validation.hasError) return;
 

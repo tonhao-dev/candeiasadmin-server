@@ -31,8 +31,8 @@ interface IStudentDTO {
   year_of_last_belt_promotion?: number | null;
   trained_in_a_different_group?: string | null;
   first_capoeira_teacher?: string | null;
-  center_id?: string | null;
-  current_teacher?: string | null;
+  center_id?: UUID | null;
+  current_teacher_id?: UUID | null;
 }
 
 export class StudentDTO implements IStudentDTO {
@@ -59,7 +59,7 @@ export class StudentDTO implements IStudentDTO {
   public year_of_last_belt_promotion?: number | null;
   public trained_in_a_different_group?: string | null;
   public first_capoeira_teacher?: string | null;
-  public current_teacher?: string | null;
+  public current_teacher_id?: UUID | null;
 
   constructor(studentDTO: IStudentDTO) {
     this.id = studentDTO.id;
@@ -87,7 +87,7 @@ export class StudentDTO implements IStudentDTO {
     this.year_of_last_belt_promotion = studentDTO.year_of_last_belt_promotion ?? null;
     this.trained_in_a_different_group = studentDTO.trained_in_a_different_group ?? null;
     this.first_capoeira_teacher = studentDTO.first_capoeira_teacher ?? null;
-    this.current_teacher = studentDTO.current_teacher ?? null;
+    this.current_teacher_id = studentDTO.current_teacher_id ?? null;
 
     if (!studentDTO.guardian || new Guardian(studentDTO.guardian).validation.hasError) return;
 
