@@ -6,7 +6,9 @@ class AuthController {
     if (request.isAuthenticated()) {
       return next();
     }
-    return response.redirect('/auth/google');
+    return response
+      .status(401)
+      .json(new ValidationError({ message: 'Unauthorized', validations: [] }));
   }
 
   async logout(request: Request, response: Response, next: NextFunction) {
