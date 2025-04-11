@@ -1,4 +1,4 @@
-import { StudentRecord } from '../types/studentTable';
+import { StudentRecord } from '../types/table/studentTable';
 
 export class Record {
   constructor(student: StudentRecord) {
@@ -36,7 +36,7 @@ export class Record {
       trained_in_a_different_group: student.trained_in_a_different_group,
       first_capoeira_teacher: student.first_capoeira_teacher,
       center_name: student.center_name,
-      current_teacher: student.current_teacher,
+      current_teacher_id: student.current_teacher_id,
     };
   }
 }

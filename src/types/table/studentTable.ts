@@ -1,7 +1,7 @@
 import { UUID } from 'crypto';
-import { Genders } from '../enum/gender';
-import { Race } from '../enum/race';
-import { Status } from '../enum/status';
+import { Genders } from '../../enum/gender';
+import { Race } from '../../enum/race';
+import { Status } from '../../enum/status';
 
 export interface StudentTable {
   id: UUID;
@@ -32,7 +32,7 @@ export interface StudentTable {
   trained_in_a_different_group: string | null;
   first_capoeira_teacher: string | null;
   center_id: UUID | null;
-  current_teacher: string | null;
+  current_teacher_id: UUID | null;
 }
 
 export interface GuardianTable {

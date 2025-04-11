@@ -1,7 +1,7 @@
 import { UUID } from 'crypto';
 import db from '../database/connection';
 import { Student } from '../entity/student';
-import { StudentRecord } from '../types/studentTable';
+import { StudentRecord, StudentTable } from '../types/table/studentTable';
 
 export interface IStudentRepository {
   saveOne: (student: Student) => Promise<UUID>;
@@ -55,7 +55,7 @@ export class StudentRepository implements IStudentRepository {
   }
 
   async updateOne(id: UUID, student: Student) {
-    const studentData = {
+    const studentData: Partial<StudentTable> = {
       name: student.name,
       phone: student.phone,
       email: student.email,
@@ -77,6 +77,7 @@ export class StudentRepository implements IStudentRepository {
       year_of_last_belt_promotion: student.year_of_last_belt_promotion,
       trained_in_a_different_group: student.trained_in_a_different_group,
       first_capoeira_teacher: student.first_capoeira_teacher,
+      current_teacher_id: student.current_teacher_id,
     };
 
     await db('student').where('id', id).update(studentData);
