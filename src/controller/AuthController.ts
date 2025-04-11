@@ -2,6 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 import { ValidationError } from '../entity/error';
 
 class AuthController {
+  async isLoggedIn(request: Request, response: Response, next: NextFunction) {
+    if (request.isAuthenticated()) {
+      return next();
+    }
+    return response.redirect('/auth/google');
+  }
+
   async logout(request: Request, response: Response, next: NextFunction) {
     if (!request.logout) {
       return response
