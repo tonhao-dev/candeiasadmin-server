@@ -1,13 +1,13 @@
 import express from 'express';
 import passport from 'passport';
 
-import { StudentController } from './controller/StudentController';
+import { PersonController } from './controller/PersonController';
 import { HealthCheckController } from './controller/HealthController';
 import { AuthController } from './controller/AuthController';
 
 const routes = express.Router();
 
-const studentController = new StudentController();
+const personController = new PersonController();
 const healthCheckController = new HealthCheckController();
 const authController = new AuthController();
 
@@ -15,27 +15,27 @@ routes.get('/', healthCheckController.check.bind(healthCheckController));
 routes.get(
   '/student',
   authController.isLoggedIn.bind(authController),
-  studentController.getAll.bind(studentController)
+  personController.getAll.bind(personController)
 );
 routes.get(
   '/student/:id',
   authController.isLoggedIn.bind(authController),
-  studentController.getOne.bind(studentController)
+  personController.getOne.bind(personController)
 );
 routes.post(
   '/student',
   authController.isLoggedIn.bind(authController),
-  studentController.create.bind(studentController)
+  personController.create.bind(personController)
 );
 routes.patch(
   '/student/:id',
   authController.isLoggedIn.bind(authController),
-  studentController.update.bind(studentController)
+  personController.update.bind(personController)
 );
 routes.delete(
   '/student/:id',
   authController.isLoggedIn.bind(authController),
-  studentController.delete.bind(studentController)
+  personController.delete.bind(personController)
 );
 
 routes.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

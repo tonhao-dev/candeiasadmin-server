@@ -1,24 +1,24 @@
 import { Request, Response } from 'express';
 import { IResponseModel } from '../types/response';
-import { StudentService } from '../service/StudentService';
+import { PersonService } from '../service/PersonService';
 import { Record } from '../entity/record';
 import { UUID } from 'crypto';
 
-class StudentController {
-  private studentService: StudentService;
+class PersonController {
+  private personService: PersonService;
 
-  constructor({ studentService } = { studentService: new StudentService() }) {
-    this.studentService = studentService;
+  constructor({ personService } = { personService: new PersonService() }) {
+    this.personService = personService;
   }
 
   async getAll(_: Request, response: Response<IResponseModel<Record[]>>) {
-    const result = await this.studentService.getAll();
+    const result = await this.personService.getAll();
 
     return response.json(result);
   }
 
   async getOne(request: Request, response: Response<IResponseModel<Record>>) {
-    const result = await this.studentService.getOne(request.params.id);
+    const result = await this.personService.getOne(request.params.id);
 
     if (result.validations.length > 0) {
       return response.status(400).json(result);
@@ -28,7 +28,7 @@ class StudentController {
   }
 
   async create(request: Request, response: Response<IResponseModel>) {
-    const result = await this.studentService.create(request.body);
+    const result = await this.personService.create(request.body);
 
     if (result.validations.length > 0) {
       return response.status(400).json(result);
@@ -38,7 +38,7 @@ class StudentController {
   }
 
   async update(request: Request, response: Response<IResponseModel>) {
-    const result = await this.studentService.update(request.params.id as UUID, request.body);
+    const result = await this.personService.update(request.params.id as UUID, request.body);
 
     if (result.validations.length > 0) {
       return response.status(400).json(result);
@@ -48,7 +48,7 @@ class StudentController {
   }
 
   async delete(request: Request, response: Response<IResponseModel>) {
-    const result = await this.studentService.delete(request.params.id as UUID);
+    const result = await this.personService.delete(request.params.id as UUID);
 
     if (result.validations.length > 0) {
       return response.status(400).json(result);
@@ -58,4 +58,4 @@ class StudentController {
   }
 }
 
-export { StudentController };
+export { PersonController };
