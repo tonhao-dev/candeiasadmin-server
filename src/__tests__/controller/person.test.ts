@@ -28,7 +28,7 @@ describe('POST /people', () => {
       })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(200);
+      .expect(201);
     expect(response.body.result).toBeDefined();
   });
 
@@ -57,7 +57,7 @@ describe('POST /people', () => {
         },
       })
       .set('Accept', 'application/json')
-      .expect(200);
+      .expect(201);
     expect(response.body.result).toBeDefined();
   });
 
@@ -83,7 +83,7 @@ describe('POST /people', () => {
           phone: faker.phone.number(),
         },
       })
-      .expect(200);
+      .expect(201);
     expect(response.body.result).toBeDefined();
   });
 
@@ -129,7 +129,7 @@ describe('GET /people/:id', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/);
     expect(response.body.result).toBeDefined();
-    request(app).get(`/students/${response.body.result}`).expect(200);
+    request(app).get(`/students/${response.body.result}`).expect(201);
   });
 
   it('Deve retornar 400 se o ID de uma pessoa não for encontrado', function () {
@@ -140,26 +140,57 @@ describe('GET /people/:id', () => {
   });
 });
 
-describe('PATCH /person/:id', () => {
-  it('Deve atualizar as informações de uma pessoa que acabou de ser criada', async function () {
-    const response = await request(app)
+describe('PATCH /people/:id - Atualiza todos os campos', () => {
+  it('Deve atualizar todos os campos editáveis de uma pessoa', async () => {
+    const createResponse = await request(app)
       .post('/people')
       .send({
-        name: 'Luis Santiago',
-        birthday: subYears(new Date(), 20).toISOString(),
+        name: 'Original Name',
+        birthday: subYears(new Date(), 25).toISOString(),
         gender: Genders.Male,
+        race: Race.Brown,
+        is_pwd: false,
+        status: Status.Active,
         email: faker.internet.email(),
       })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/);
-    const personID = response.body.result;
-    await request(app).patch(`/people/${personID}`).send({ name: 'Luis Antonio' });
-    request(app)
-      .get(`/people/${personID}`)
-      .expect(200)
-      .then(response => {
-        expect(response.body.result.name).toBe('Luis Antonio');
-      });
+      .expect(201);
+
+    const personId = createResponse.body.result;
+
+    const updatedPayload = {
+      name: 'Updated Name',
+      nickname: 'CapoeiraNick',
+      gender: Genders.Female,
+      is_pwd: true,
+      race: Race.Black,
+      status: Status.Inactive,
+      email: faker.internet.email(),
+      address: faker.location.streetAddress(),
+      phone: faker.phone.number(),
+      facebook: 'updated.fb',
+      instagram: 'updated.ig',
+      tiktok: 'updated.tt',
+      job: 'Professor',
+      education_level: 'Superior completo',
+      course: 'Educação Física',
+      year_start_capoeira: 2005,
+      effective_capoeira_training_time: 15,
+      year_of_last_belt_promotion: 2020,
+      trained_in_a_different_group: 'Grupo Raízes',
+      first_capoeira_teacher: 'Mestre João',
+    };
+
+    await request(app).patch(`/people/${personId}`).send(updatedPayload).expect(200);
+
+    const getResponse = await request(app).get(`/people/${personId}`).expect(200);
+
+    const updatedPerson = getResponse.body.result;
+
+    for (const key of Object.keys(updatedPayload)) {
+      expect(String(updatedPerson[key])).toEqual(
+        String(updatedPayload[key as keyof typeof updatedPayload])
+      );
+    }
   });
 });
 
