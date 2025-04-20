@@ -24,6 +24,7 @@ export class Record {
       job: student.job,
       education_level: student.education_level,
       course: student.course,
+      isTeacher: student.is_teacher,
       belt: {
         name: student.belt_name,
         title: student.belt_title,

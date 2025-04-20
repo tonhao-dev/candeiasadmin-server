@@ -25,6 +25,7 @@ export interface PersonTable {
   job: string | null;
   education_level: string | null;
   course: string | null;
+  is_teacher: boolean;
   belt_id: UUID | null;
   year_start_capoeira: number | null;
   effective_capoeira_training_time: number | null;

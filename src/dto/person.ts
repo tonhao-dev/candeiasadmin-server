@@ -25,6 +25,7 @@ interface IPersonDTO {
   job?: string | null;
   education_level?: string | null;
   course?: string | null;
+  is_teacher: boolean;
   belt_id?: string | null;
   year_start_capoeira?: number | null;
   effective_capoeira_training_time?: number | null;
@@ -54,6 +55,7 @@ export class PersonDTO implements IPersonDTO {
   public job?: string | null;
   public education_level?: string | null;
   public course?: string | null;
+  public is_teacher: boolean = false;
   public year_start_capoeira?: number | null;
   public effective_capoeira_training_time?: number | null;
   public year_of_last_belt_promotion?: number | null;

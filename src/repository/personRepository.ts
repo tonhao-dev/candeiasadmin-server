@@ -4,7 +4,7 @@ import { Person } from '../entity/person';
 import { PersonRecord, PersonTable } from '../types/table/personTable';
 
 export interface IPersonRepository {
-  saveOne: (student: Person) => Promise<UUID>;
+  saveOne: (person: Person) => Promise<UUID>;
   getAll: () => Promise<PersonRecord[]>;
   getOne: (id: string) => Promise<PersonRecord>;
 }
