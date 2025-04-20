@@ -31,7 +31,7 @@ export class Record {
         color_hex_code: student.belt_color_hex_code,
         belt_type_name: student.belt_type_name,
       },
-      year_start_capoeira: student.year_of_last_belt_promotion,
+      year_start_capoeira: student.year_start_capoeira,
       effective_capoeira_training_time: student.effective_capoeira_training_time,
       year_of_last_belt_promotion: student.year_of_last_belt_promotion,
       trained_in_a_different_group: student.trained_in_a_different_group,
