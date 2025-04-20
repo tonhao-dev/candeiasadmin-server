@@ -1,14 +1,14 @@
 import { StudentDTO } from './../dto/student';
-import { Student } from '../entity/student';
+import { Person } from '../entity/student';
 import { Record } from '../entity/record';
 import { IResponseModel } from '../types/response';
-import { StudentRepository } from '../repository/studentRepository';
+import { PersonRepository } from '../repository/personRepository';
 import { UUID } from 'crypto';
 
 class StudentService {
-  private repository: StudentRepository;
+  private repository: PersonRepository;
 
-  constructor({ repository } = { repository: new StudentRepository() }) {
+  constructor({ repository } = { repository: new PersonRepository() }) {
     this.repository = repository;
   }
 

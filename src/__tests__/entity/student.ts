@@ -1,5 +1,5 @@
 import { subYears } from 'date-fns';
-import { Student } from '../../entity/student';
+import { Person } from '../../entity/student';
 import { Genders } from '../../enum/gender';
 import { faker } from '@faker-js/faker';
 

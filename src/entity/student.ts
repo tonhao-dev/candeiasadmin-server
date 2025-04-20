@@ -8,7 +8,7 @@ import { Race } from '../enum/race';
 import { Status } from '../enum/status';
 import { UUID } from 'crypto';
 
-class Student {
+class Person {
   public id?: UUID;
   public name: string = '';
   public birthday: ISODate = '';
@@ -37,7 +37,7 @@ class Student {
   public current_teacher_id?: UUID | null;
 
   constructor(studentDTO: StudentDTO) {
-    const validations = Student.validate(studentDTO);
+    const validations = Person.validate(studentDTO);
     if (validations.length > 0) {
       this.validation.message = 'Os dados do aluno são inválidos';
       this.validation.validations = validations;
@@ -143,4 +143,4 @@ class Student {
   }
 }
 
-export { Student };
+export { Person };

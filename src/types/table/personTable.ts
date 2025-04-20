@@ -3,7 +3,7 @@ import { Genders } from '../../enum/gender';
 import { Race } from '../../enum/race';
 import { Status } from '../../enum/status';
 
-export interface StudentTable {
+export interface PersonTable {
   id: UUID;
   name: string;
   phone: string | null;
@@ -45,7 +45,7 @@ export interface GuardianTable {
   deleted_at: Date | null;
 }
 
-export interface StudentRecord extends StudentTable {
+export interface PersonRecord extends PersonTable {
   guardian_name: string;
   guardian_phone: string;
   belt_name: string | null;
