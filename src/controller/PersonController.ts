@@ -11,8 +11,8 @@ class PersonController {
     this.personService = personService;
   }
 
-  async getAll(_: Request, response: Response<IResponseModel<Record[]>>) {
-    const result = await this.personService.getAll();
+  async getAllStudents(_: Request, response: Response<IResponseModel<Record[]>>) {
+    const result = await this.personService.getAllStudents();
 
     return response.json(result);
   }

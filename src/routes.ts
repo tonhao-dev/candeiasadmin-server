@@ -15,9 +15,9 @@ const teacherController = new TeacherController();
 
 routes.get('/', healthCheckController.check.bind(healthCheckController));
 routes.get(
-  '/person',
+  '/students',
   authController.isLoggedIn.bind(authController),
-  personController.getAll.bind(personController)
+  personController.getAllStudents.bind(personController)
 );
 routes.get(
   '/person/:id',

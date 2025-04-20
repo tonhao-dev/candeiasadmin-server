@@ -6,20 +6,20 @@ import { Race } from '../../enum/race';
 import { Status } from '../../enum/status';
 import { faker } from '@faker-js/faker';
 
-describe('GET /person', () => {
+describe('GET /students', () => {
   it('Deve retornar uma lista de alunos', async function () {
     const response = await request(app)
-      .get('/person')
+      .get('/students')
       .set('Accept', 'application/json')
       .expect(200);
     expect(response.body.result).toBeDefined();
   });
 });
 
-describe('POST /person', () => {
+describe('POST /students', () => {
   it('Deve criar um aluno de maior com apenas as informações obrigatórias', async function () {
     const response = await request(app)
-      .post('/person')
+      .post('/students')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20).toISOString(),
@@ -34,7 +34,7 @@ describe('POST /person', () => {
 
   it('Deve criar um aluno criança com todas as informações completas', async function () {
     const response = await request(app)
-      .post('/person')
+      .post('/students')
       .send({
         name: 'Maria Clara',
         birthday: subYears(new Date(), 10).toISOString(),
@@ -63,7 +63,7 @@ describe('POST /person', () => {
 
   it('Deve retornar 400 se o nome de um aluno de maior não for informado', function () {
     return request(app)
-      .post('/person')
+      .post('/students')
       .send({
         birthday: subYears(new Date(), 20),
       })
@@ -73,7 +73,7 @@ describe('POST /person', () => {
 
   it('Deve criar um aluno de menor com sucesso', async function () {
     const response = await request(app)
-      .post('/person')
+      .post('/students')
       .set('Accept', 'application/json')
       .send({
         name: 'Luis Santiago',
@@ -89,7 +89,7 @@ describe('POST /person', () => {
 
   it('Deve retornar 400 quando o nome do responsável do aluno criança não for informado', function () {
     return request(app)
-      .post('/person')
+      .post('/students')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20),
@@ -103,7 +103,7 @@ describe('POST /person', () => {
 
   it('Deve retornar 400 se o telefone do responsável do aluno criança não for informado', function () {
     return request(app)
-      .post('/person')
+      .post('/students')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 10),
@@ -119,7 +119,7 @@ describe('POST /person', () => {
 describe('GET /person/:id', () => {
   it('Deve retornar as informações de um aluno que acabara de ser criado', async function () {
     const response = await request(app)
-      .post('/person')
+      .post('/students')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20).toISOString(),
@@ -143,7 +143,7 @@ describe('GET /person/:id', () => {
 describe('PATCH /person/:id', () => {
   it('Deve atualizar as informações de um aluno', async function () {
     const response = await request(app)
-      .post('/person')
+      .post('/students')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20).toISOString(),
@@ -166,7 +166,7 @@ describe('PATCH /person/:id', () => {
 describe('DELETE /person/:id', () => {
   it('Deve retornar 400 quando um aluno que acabou de ser criado for deletado', async function () {
     const response = await request(app)
-      .post('/person')
+      .post('/students')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20).toISOString(),

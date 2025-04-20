@@ -5,7 +5,7 @@ import { PersonRecord, PersonTable } from '../types/table/personTable';
 
 export interface IPersonRepository {
   saveOne: (person: Person) => Promise<UUID>;
-  getAll: () => Promise<PersonRecord[]>;
+  getAllStudents: () => Promise<PersonRecord[]>;
   getOne: (id: string) => Promise<PersonRecord>;
 }
 
@@ -19,8 +19,10 @@ export class PersonRepository implements IPersonRepository {
     return person;
   }
 
-  async getAll(): Promise<PersonRecord[]> {
-    const people = await this._buildPersonQuery().where('person.deleted_at', null);
+  async getAllStudents(): Promise<PersonRecord[]> {
+    const people = await this._buildPersonQuery()
+      .where('person.deleted_at', null)
+      .where('person.is_teacher', false);
 
     return people;
   }

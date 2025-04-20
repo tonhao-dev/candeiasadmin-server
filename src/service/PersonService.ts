@@ -30,8 +30,8 @@ class PersonService {
     };
   }
 
-  async getAll(): Promise<IResponseModel<Record[]>> {
-    const people = await this.repository.getAll();
+  async getAllStudents(): Promise<IResponseModel<Record[]>> {
+    const people = await this.repository.getAllStudents();
     const records = people.map(person => new Record(person));
 
     return {
