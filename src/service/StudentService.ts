@@ -1,11 +1,11 @@
-import { StudentDTO } from './../dto/student';
-import { Person } from '../entity/student';
+import { PersonDTO } from '../dto/person';
+import { Person } from '../entity/person';
 import { Record } from '../entity/record';
 import { IResponseModel } from '../types/response';
 import { PersonRepository } from '../repository/personRepository';
 import { UUID } from 'crypto';
 
-class StudentService {
+class PersonService {
   private repository: PersonRepository;
 
   constructor({ repository } = { repository: new PersonRepository() }) {
@@ -13,9 +13,9 @@ class StudentService {
   }
 
   async getOne(id: string): Promise<IResponseModel<Record>> {
-    const student = await this.repository.getOne(id);
+    const person = await this.repository.getOne(id);
 
-    if (!student) {
+    if (!person) {
       return {
         message: 'O aluno não foi encontrado.',
         result: null,
@@ -25,14 +25,14 @@ class StudentService {
 
     return {
       message: '',
-      result: new Record(student),
+      result: new Record(person),
       validations: [],
     };
   }
 
   async getAll(): Promise<IResponseModel<Record[]>> {
-    const students = await this.repository.getAll();
-    const records = students.map(student => new Record(student));
+    const people = await this.repository.getAll();
+    const records = people.map(person => new Record(person));
 
     return {
       message: '',
@@ -41,18 +41,18 @@ class StudentService {
     };
   }
 
-  async create(studentDTO: StudentDTO): Promise<IResponseModel<string>> {
-    const student = new Student(studentDTO);
+  async create(personDTO: PersonDTO): Promise<IResponseModel<string>> {
+    const person = new Person(personDTO);
 
-    if (student.validation.hasError) {
+    if (person.validation.hasError) {
       return {
-        message: student.validation.message,
+        message: person.validation.message,
         result: null,
-        validations: student.validation.validations,
+        validations: person.validation.validations,
       };
     }
 
-    const id = await this.repository.saveOne(student);
+    const id = await this.repository.saveOne(person);
 
     return {
       message: '',
@@ -61,10 +61,10 @@ class StudentService {
     };
   }
 
-  async update(id: UUID, studentDTO: StudentDTO): Promise<IResponseModel<string>> {
-    const studentExists = await this.repository.getOne(id);
+  async update(id: UUID, personDTO: PersonDTO): Promise<IResponseModel<string>> {
+    const personData = await this.repository.getOne(id);
 
-    if (!studentExists) {
+    if (!personData) {
       return {
         message: 'O aluno não foi encontrado.',
         result: null,
@@ -72,22 +72,22 @@ class StudentService {
       };
     }
 
-    const student = new Student(
-      new StudentDTO({
-        ...studentExists,
-        ...studentDTO,
+    const person = new Person(
+      new PersonDTO({
+        ...personData,
+        ...personDTO,
       })
     );
 
-    if (student.validation.hasError) {
+    if (person.validation.hasError) {
       return {
-        message: student.validation.message,
+        message: person.validation.message,
         result: null,
-        validations: student.validation.validations,
+        validations: person.validation.validations,
       };
     }
 
-    await this.repository.updateOne(id, student);
+    await this.repository.updateOne(id, person);
 
     return {
       message: '',
@@ -97,9 +97,9 @@ class StudentService {
   }
 
   async delete(id: UUID): Promise<IResponseModel<string>> {
-    const studentExists = await this.repository.getOne(id);
+    const personData = await this.repository.getOne(id);
 
-    if (!studentExists) {
+    if (!personData) {
       return {
         message: 'O aluno não foi encontrado.',
         result: null,
@@ -117,4 +117,4 @@ class StudentService {
   }
 }
 
-export { StudentService };
+export { PersonService };

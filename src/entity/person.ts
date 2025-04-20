@@ -1,4 +1,4 @@
-import { StudentDTO } from '../dto/student';
+import { PersonDTO } from '../dto/person';
 import { Genders } from '../enum/gender';
 import { ISODate } from '../types/date';
 import { differenceInYears, isAfter, isBefore, isValid } from 'date-fns';
@@ -36,7 +36,7 @@ class Person {
   public center_id?: UUID | null;
   public current_teacher_id?: UUID | null;
 
-  constructor(studentDTO: StudentDTO) {
+  constructor(studentDTO: PersonDTO) {
     const validations = Person.validate(studentDTO);
     if (validations.length > 0) {
       this.validation.message = 'Os dados do aluno são inválidos';
@@ -73,7 +73,7 @@ class Person {
     this.guardian = new Guardian(studentDTO.guardian);
   }
 
-  private static validate(studentDTO: StudentDTO): string[] {
+  private static validate(studentDTO: PersonDTO): string[] {
     const allValidations = [
       this.validateBirthday,
       this.validateName,
@@ -92,7 +92,7 @@ class Person {
     return validationsMessages;
   }
 
-  private static validateChildren(StudentDTO: StudentDTO): { hasError: boolean; message: string } {
+  private static validateChildren(StudentDTO: PersonDTO): { hasError: boolean; message: string } {
     const ageInYears = differenceInYears(new Date(), new Date(StudentDTO.birthday));
 
     if (ageInYears >= 18)
@@ -106,14 +106,14 @@ class Person {
     return { hasError: guardian.validation.hasError, message: guardian.validation.message };
   }
 
-  private static validateName(studentDTO: StudentDTO): { hasError: boolean; message: string } {
+  private static validateName(studentDTO: PersonDTO): { hasError: boolean; message: string } {
     if (studentDTO.name === undefined || studentDTO.name === null || studentDTO.name.length === 0)
       return { hasError: true, message: 'Nome é obrigatório' };
 
     return { hasError: false, message: '' };
   }
 
-  private static validateBirthday(studentDTO: StudentDTO): { hasError: boolean; message: string } {
+  private static validateBirthday(studentDTO: PersonDTO): { hasError: boolean; message: string } {
     if (studentDTO.birthday.length === 0)
       return { hasError: true, message: 'A data de nascimento não pode ser vazia' };
 
@@ -128,7 +128,7 @@ class Person {
     return { hasError: false, message: '' };
   }
 
-  private static validateHasContact(studentDTO: StudentDTO): {
+  private static validateHasContact(studentDTO: PersonDTO): {
     hasError: boolean;
     message: string;
   } {

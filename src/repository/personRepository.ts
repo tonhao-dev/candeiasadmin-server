@@ -1,6 +1,6 @@
 import { UUID } from 'crypto';
 import db from '../database/connection';
-import { Person } from '../entity/student';
+import { Person } from '../entity/person';
 import { PersonRecord, PersonTable } from '../types/table/personTable';
 
 export interface IPersonRepository {
