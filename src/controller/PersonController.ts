@@ -34,7 +34,7 @@ class PersonController {
       return response.status(400).json(result);
     }
 
-    return response.json(result);
+    return response.status(201).json(result);
   }
 
   async update(request: Request, response: Response<IResponseModel>) {
