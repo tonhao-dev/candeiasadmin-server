@@ -2,11 +2,11 @@ GET http://localhost:4000
 
 ###
 
-GET http://localhost:4000/student
+GET http://localhost:4000/person
 
 ###
 
-POST http://localhost:4000/student
+POST http://localhost:4000/person
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:4000/student
+POST http://localhost:4000/person
 Content-Type: application/json
 
 {
@@ -33,12 +33,12 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:4000/student/75f6f9c9-b862-4d91-9249-43f07d040230
+GET http://localhost:4000/person/75f6f9c9-b862-4d91-9249-43f07d040230
 Content-Type: application/json
 
 ###
 
-PATCH http://localhost:4000/student/4276407a-6ed2-43af-8717-993bbf6a36d1
+PATCH http://localhost:4000/person/4276407a-6ed2-43af-8717-993bbf6a36d1
 Content-Type: application/json
 
 {
@@ -69,12 +69,12 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:4000/student/e6c9ed14-0d88-4131-9695-42e81dbd05ca
+DELETE http://localhost:4000/person/e6c9ed14-0d88-4131-9695-42e81dbd05ca
 Content-Type: application/json
 
 ###
 
-DELETE http://localhost:4000/student/00000000-0000-0000-0000-000000000000
+DELETE http://localhost:4000/person/00000000-0000-0000-0000-000000000000
 Content-Type: application/json
 
 ###

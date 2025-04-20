@@ -13,27 +13,27 @@ const authController = new AuthController();
 
 routes.get('/', healthCheckController.check.bind(healthCheckController));
 routes.get(
-  '/student',
+  '/person',
   authController.isLoggedIn.bind(authController),
   personController.getAll.bind(personController)
 );
 routes.get(
-  '/student/:id',
+  '/person/:id',
   authController.isLoggedIn.bind(authController),
   personController.getOne.bind(personController)
 );
 routes.post(
-  '/student',
+  '/person',
   authController.isLoggedIn.bind(authController),
   personController.create.bind(personController)
 );
 routes.patch(
-  '/student/:id',
+  '/person/:id',
   authController.isLoggedIn.bind(authController),
   personController.update.bind(personController)
 );
 routes.delete(
-  '/student/:id',
+  '/person/:id',
   authController.isLoggedIn.bind(authController),
   personController.delete.bind(personController)
 );
