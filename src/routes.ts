@@ -44,6 +44,11 @@ routes.patch(
   authController.isLoggedIn.bind(authController),
   teacherController.graduateToTeacher.bind(teacherController)
 );
+routes.get(
+  '/teachers',
+  authController.isLoggedIn.bind(authController),
+  teacherController.getAll.bind(teacherController)
+);
 
 routes.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get(

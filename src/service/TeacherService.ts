@@ -1,12 +1,32 @@
 import { UUID } from 'crypto';
 import { TeacherRepository } from '../repository/teacherRepository';
 import { IResponseModel } from '../types/response';
+import { Record } from '../entity/record';
 
-export class TeacherService {
+class TeacherService {
   private teacherRepository: TeacherRepository;
 
   constructor({ teacherRepository } = { teacherRepository: new TeacherRepository() }) {
     this.teacherRepository = teacherRepository;
+  }
+
+  async getAll(): Promise<IResponseModel<Record[]>> {
+    const rawTeachers = await this.teacherRepository.getAll();
+    const teachers = rawTeachers.map(rawTeacher => new Record(rawTeacher));
+
+    if (!teachers) {
+      return {
+        validations: ['Não foi possível encontrar professores'],
+        result: [],
+        message: 'Não foi possível encontrar professores',
+      };
+    }
+
+    return {
+      validations: [],
+      result: teachers,
+      message: '',
+    };
   }
 
   async graduateToTeacher(id: UUID): Promise<IResponseModel<boolean>> {
@@ -27,3 +47,5 @@ export class TeacherService {
     };
   }
 }
+
+export { TeacherService };

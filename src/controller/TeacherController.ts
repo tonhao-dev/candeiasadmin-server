@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UUID } from 'crypto';
 import { IResponseModel } from '../types/response';
+import { Record } from '../entity/record';
 import { TeacherService } from '../service/TeacherService';
 
 class TeacherController {
@@ -8,6 +9,12 @@ class TeacherController {
 
   constructor({ teacherService } = { teacherService: new TeacherService() }) {
     this.teacherService = teacherService;
+  }
+
+  async getAll(_: Request, response: Response<IResponseModel<Record[]>>) {
+    const result = await this.teacherService.getAll();
+
+    return response.json(result);
   }
 
   async graduateToTeacher(request: Request, response: Response<IResponseModel<boolean>>) {
