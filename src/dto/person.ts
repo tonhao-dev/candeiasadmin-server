@@ -25,7 +25,7 @@ interface IPersonDTO {
   job?: string | null;
   education_level?: string | null;
   course?: string | null;
-  is_teacher: boolean;
+  is_teacher?: boolean;
   belt_id?: string | null;
   year_start_capoeira?: number | null;
   effective_capoeira_training_time?: number | null;
@@ -37,31 +37,31 @@ interface IPersonDTO {
 }
 
 export class PersonDTO implements IPersonDTO {
-  public id?: UUID;
-  public name: string;
-  public birthday: ISODate;
-  public gender: Genders = Genders.Other;
-  public phone?: string | null;
-  public guardian?: IGuardianDTO;
-  public nickname?: string | null;
-  public is_pwd?: boolean = false;
-  public race?: Race = Race.NotDeclared;
-  public status?: Status = Status.Active;
-  public email?: string | null;
-  public address?: string | null;
-  public facebook?: string | null;
-  public instagram?: string | null;
-  public tiktok?: string | null;
-  public job?: string | null;
-  public education_level?: string | null;
-  public course?: string | null;
-  public is_teacher: boolean = false;
-  public year_start_capoeira?: number | null;
-  public effective_capoeira_training_time?: number | null;
-  public year_of_last_belt_promotion?: number | null;
-  public trained_in_a_different_group?: string | null;
-  public first_capoeira_teacher?: string | null;
-  public current_teacher_id?: UUID | null;
+  public id?;
+  public name;
+  public birthday;
+  public gender;
+  public phone?;
+  public guardian?;
+  public nickname?;
+  public is_pwd?;
+  public race?;
+  public status?;
+  public email?;
+  public address?;
+  public facebook?;
+  public instagram?;
+  public tiktok?;
+  public job?;
+  public education_level?;
+  public course?;
+  public is_teacher? = false;
+  public year_start_capoeira?;
+  public effective_capoeira_training_time?;
+  public year_of_last_belt_promotion?;
+  public trained_in_a_different_group?;
+  public first_capoeira_teacher?;
+  public current_teacher_id?;
 
   constructor(personDTO: IPersonDTO) {
     this.id = personDTO.id;
@@ -84,6 +84,7 @@ export class PersonDTO implements IPersonDTO {
     this.job = personDTO.job ?? null;
     this.education_level = personDTO.education_level ?? null;
     this.course = personDTO.course ?? null;
+    this.is_teacher = personDTO.is_teacher ?? false;
     this.year_start_capoeira = personDTO.year_start_capoeira ?? null;
     this.effective_capoeira_training_time = personDTO.effective_capoeira_training_time ?? null;
     this.year_of_last_belt_promotion = personDTO.year_of_last_belt_promotion ?? null;

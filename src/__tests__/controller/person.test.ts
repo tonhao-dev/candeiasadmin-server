@@ -16,10 +16,10 @@ describe('GET /students', () => {
   });
 });
 
-describe('POST /students', () => {
+describe('POST /people', () => {
   it('Deve criar um aluno de maior com apenas as informações obrigatórias', async function () {
     const response = await request(app)
-      .post('/students')
+      .post('/people')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20).toISOString(),
@@ -34,7 +34,7 @@ describe('POST /students', () => {
 
   it('Deve criar um aluno criança com todas as informações completas', async function () {
     const response = await request(app)
-      .post('/students')
+      .post('/people')
       .send({
         name: 'Maria Clara',
         birthday: subYears(new Date(), 10).toISOString(),
@@ -63,7 +63,7 @@ describe('POST /students', () => {
 
   it('Deve retornar 400 se o nome de um aluno de maior não for informado', function () {
     return request(app)
-      .post('/students')
+      .post('/people')
       .send({
         birthday: subYears(new Date(), 20),
       })
@@ -73,7 +73,7 @@ describe('POST /students', () => {
 
   it('Deve criar um aluno de menor com sucesso', async function () {
     const response = await request(app)
-      .post('/students')
+      .post('/people')
       .set('Accept', 'application/json')
       .send({
         name: 'Luis Santiago',
@@ -89,7 +89,7 @@ describe('POST /students', () => {
 
   it('Deve retornar 400 quando o nome do responsável do aluno criança não for informado', function () {
     return request(app)
-      .post('/students')
+      .post('/people')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20),
@@ -103,7 +103,7 @@ describe('POST /students', () => {
 
   it('Deve retornar 400 se o telefone do responsável do aluno criança não for informado', function () {
     return request(app)
-      .post('/students')
+      .post('/people')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 10),
@@ -116,10 +116,10 @@ describe('POST /students', () => {
   });
 });
 
-describe('GET /person/:id', () => {
+describe('GET /people/:id', () => {
   it('Deve retornar as informações de um aluno que acabara de ser criado', async function () {
     const response = await request(app)
-      .post('/students')
+      .post('/people')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20).toISOString(),
@@ -129,21 +129,21 @@ describe('GET /person/:id', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/);
     expect(response.body.result).toBeDefined();
-    request(app).get(`/person/${response.body.result}`).expect(200);
+    request(app).get(`/students/${response.body.result}`).expect(200);
   });
 
-  it('Deve retornar 400 se o ID do aluno não for encontrado', function () {
+  it('Deve retornar 400 se o ID de uma pessoa não for encontrado', function () {
     return request(app)
-      .get('/person/00000000-0000-0000-0000-000000000000')
+      .get('/people/00000000-0000-0000-0000-000000000000')
       .set('Accept', 'application/json')
       .expect(400);
   });
 });
 
 describe('PATCH /person/:id', () => {
-  it('Deve atualizar as informações de um aluno', async function () {
+  it('Deve atualizar as informações de uma pessoa que acabou de ser criada', async function () {
     const response = await request(app)
-      .post('/students')
+      .post('/people')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20).toISOString(),
@@ -153,12 +153,12 @@ describe('PATCH /person/:id', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/);
     const personID = response.body.result;
-    await request(app).patch(`/person/${personID}`).send({ name: 'Luis Antonio' });
+    await request(app).patch(`/people/${personID}`).send({ name: 'Luis Antonio' });
     request(app)
-      .get(`/person/${personID}`)
+      .get(`/people/${personID}`)
       .expect(200)
-      .then(response_1 => {
-        expect(response_1.body.result.name).toBe('Luis Antonio');
+      .then(response => {
+        expect(response.body.result.name).toBe('Luis Antonio');
       });
   });
 });
@@ -166,7 +166,7 @@ describe('PATCH /person/:id', () => {
 describe('DELETE /person/:id', () => {
   it('Deve retornar 400 quando um aluno que acabou de ser criado for deletado', async function () {
     const response = await request(app)
-      .post('/students')
+      .post('/people')
       .send({
         name: 'Luis Santiago',
         birthday: subYears(new Date(), 20).toISOString(),
@@ -176,13 +176,13 @@ describe('DELETE /person/:id', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/);
     const personID = response.body.result;
-    await request(app).delete(`/person/${personID}`);
-    request(app).get(`/person/${personID}`).expect(400);
+    await request(app).delete(`/people/${personID}`);
+    request(app).get(`/people/${personID}`).expect(400);
   });
 
   it('Deve retornar 400 se o ID do aluno não for encontrado', function () {
     return request(app)
-      .delete('/person/00000000-0000-0000-0000-000000000000')
+      .delete('/people/00000000-0000-0000-0000-000000000000')
       .set('Accept', 'application/json')
       .expect(400);
   });

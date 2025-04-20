@@ -20,27 +20,27 @@ routes.get(
   personController.getAllStudents.bind(personController)
 );
 routes.get(
-  '/person/:id',
+  '/people/:id',
   authController.isLoggedIn.bind(authController),
   personController.getOne.bind(personController)
 );
 routes.post(
-  '/person',
+  '/people',
   authController.isLoggedIn.bind(authController),
   personController.create.bind(personController)
 );
 routes.patch(
-  '/person/:id',
+  '/people/:id',
   authController.isLoggedIn.bind(authController),
   personController.update.bind(personController)
 );
 routes.delete(
-  '/person/:id',
+  '/people/:id',
   authController.isLoggedIn.bind(authController),
   personController.delete.bind(personController)
 );
 routes.patch(
-  '/person/:id/graduateToTeacher',
+  '/people/:id/graduateToTeacher',
   authController.isLoggedIn.bind(authController),
   teacherController.graduateToTeacher.bind(teacherController)
 );
