@@ -21,6 +21,11 @@ export class TeacherRepository implements ITeacherRepository {
     return isSuccessful > 0;
   }
 
+  async revokeTeacherStatus(id: UUID) {
+    const isSuccessful = await db('person').where('id', id).update({ is_teacher: false });
+    return isSuccessful > 0;
+  }
+
   private _buildPersonQuery() {
     return db('person')
       .select(

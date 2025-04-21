@@ -46,6 +46,24 @@ class TeacherService {
       message: 'O aluno foi transformado em professor',
     };
   }
+
+  async revokeTeacherStatus(id: UUID): Promise<IResponseModel<boolean>> {
+    const isSuccessful = await this.teacherRepository.revokeTeacherStatus(id);
+
+    if (!isSuccessful) {
+      return {
+        validations: ['Não foi possível reverter o status de professor'],
+        result: false,
+        message: 'Não foi possível reverter o status de professor',
+      };
+    }
+
+    return {
+      validations: [],
+      result: isSuccessful,
+      message: 'O status de professor foi revertido com sucesso',
+    };
+  }
 }
 
 export { TeacherService };

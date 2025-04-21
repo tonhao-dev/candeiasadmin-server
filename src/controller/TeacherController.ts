@@ -27,6 +27,17 @@ class TeacherController {
 
     return response.json(result);
   }
+
+  async revokeTeacherStatus(request: Request, response: Response<IResponseModel<boolean>>) {
+    const id = request.params.id as UUID;
+    const result = await this.teacherService.revokeTeacherStatus(id);
+
+    if (result.validations.length > 0) {
+      return response.status(400).json(result);
+    }
+
+    return response.json(result);
+  }
 }
 
 export { TeacherController };
