@@ -5,6 +5,7 @@ import { PersonController } from './controller/PersonController';
 import { HealthCheckController } from './controller/HealthController';
 import { AuthController } from './controller/AuthController';
 import { TeacherController } from './controller/TeacherController';
+import { BeltController } from './controller/BeltController';
 
 const routes = express.Router();
 
@@ -12,6 +13,7 @@ const personController = new PersonController();
 const healthCheckController = new HealthCheckController();
 const authController = new AuthController();
 const teacherController = new TeacherController();
+const beltController = new BeltController();
 
 routes.get('/', healthCheckController.check.bind(healthCheckController));
 routes.get(
@@ -54,6 +56,7 @@ routes.patch(
   authController.isLoggedIn.bind(authController),
   teacherController.revokeTeacherStatus.bind(teacherController)
 );
+routes.get('/belts', beltController.getAll.bind(beltController));
 
 routes.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get(

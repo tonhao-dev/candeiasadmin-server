@@ -91,3 +91,7 @@ GET http://localhost:4000/teachers
 ###
 
 PATCH http://localhost:4000/teachers/7d8346f9-09b0-4f4f-ad1f-293dc5171bbe/revokeTeacherStatus
+
+###
+
+GET http://localhost:4000/belts

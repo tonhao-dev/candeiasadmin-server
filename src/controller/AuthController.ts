@@ -10,6 +10,7 @@ class AuthController {
     if (request.isAuthenticated()) {
       return next();
     }
+
     return response
       .status(401)
       .json(new ValidationError({ message: 'Unauthorized', validations: [] }));
