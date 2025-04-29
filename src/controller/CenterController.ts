@@ -1,4 +1,3 @@
-// CenterController.ts
 import { Request, Response } from 'express';
 import { UUID } from 'crypto';
 import { CenterService } from '../service/CenterService';

@@ -1,4 +1,3 @@
-// belt.test.ts
 import request from 'supertest';
 import { app } from '../../app';
 import db from '../../database/connection';

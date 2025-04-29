@@ -1,4 +1,3 @@
-// BeltRepository.ts
 import db from '../database/connection';
 import { IBeltType } from '../types/table/belt';
 
