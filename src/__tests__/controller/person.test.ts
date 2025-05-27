@@ -1,10 +1,10 @@
+import { faker } from '@faker-js/faker';
+import { subYears } from 'date-fns';
 import request from 'supertest';
 import { app } from '../../app';
-import { subYears } from 'date-fns';
 import { Genders } from '../../enum/gender';
 import { Race } from '../../enum/race';
 import { Status } from '../../enum/status';
-import { faker } from '@faker-js/faker';
 
 describe('GET /students', () => {
   it('Deve retornar uma lista de alunos', async function () {
@@ -36,21 +36,30 @@ describe('POST /people', () => {
     const response = await request(app)
       .post('/people')
       .send({
-        name: 'Maria Clara',
+        name: faker.person.fullName(),
         birthday: subYears(new Date(), 10).toISOString(),
-        gender: Genders.Female,
+        gender: Genders.Male,
         is_pwd: false,
-        race: Race.Black,
+        race: Race.Brown,
         status: Status.Active,
         email: faker.internet.email(),
-        address: faker.location.streetAddress(),
         phone: faker.phone.number(),
-        facebook: 'maria.clara',
-        instagram: 'maria.clara',
-        tiktok: 'maria.clara',
-        job: faker.person.bio(),
-        education_level: 'High School',
-        course: 'Science',
+        address: faker.location.streetAddress(),
+        facebook: faker.internet.userName(),
+        instagram: faker.internet.userName(),
+        tiktok: faker.internet.userName(),
+        job: faker.person.jobTitle(),
+        education_level: 'Superior Incompleto',
+        course: 'Tecnologia em Sistemas para a Internet',
+        year_start_capoeira: 2017,
+        effective_capoeira_training_time: 4,
+        year_of_last_belt_promotion: 2024,
+        trained_in_a_different_group: false,
+        first_capoeira_teacher: faker.person.fullName(),
+        belt_id: '098d9b24-8aad-45a6-8ec4-08395facb90c',
+        center_id: '24fb194d-23a4-4f38-9e06-9f97f77f193d',
+        current_teacher_id: '392be016-28ad-4cf9-a1c2-b623d8a36777',
+        nickname: faker.person.firstName(),
         guardian: {
           name: faker.person.fullName(),
           phone: faker.phone.number(),
@@ -158,8 +167,8 @@ describe('PATCH /people/:id - Atualiza todos os campos', () => {
     const personId = createResponse.body.result;
 
     const updatedPayload = {
-      name: 'Updated Name',
-      nickname: 'CapoeiraNick',
+      name: faker.person.fullName(),
+      nickname: faker.person.firstName(),
       gender: Genders.Female,
       is_pwd: true,
       race: Race.Black,
@@ -167,17 +176,17 @@ describe('PATCH /people/:id - Atualiza todos os campos', () => {
       email: faker.internet.email(),
       address: faker.location.streetAddress(),
       phone: faker.phone.number(),
-      facebook: 'updated.fb',
-      instagram: 'updated.ig',
-      tiktok: 'updated.tt',
-      job: 'Professor',
+      facebook: faker.internet.userName(),
+      instagram: faker.internet.userName(),
+      tiktok: faker.internet.userName(),
+      job: faker.person.jobTitle(),
       education_level: 'Superior completo',
-      course: 'Educação Física',
-      year_start_capoeira: 2005,
-      effective_capoeira_training_time: 15,
-      year_of_last_belt_promotion: 2020,
-      trained_in_a_different_group: 'Grupo Raízes',
-      first_capoeira_teacher: 'Mestre João',
+      course: faker.word.words(3),
+      year_start_capoeira: faker.number.int({ min: 1990, max: 2020 }),
+      effective_capoeira_training_time: faker.number.int({ min: 1, max: 30 }),
+      year_of_last_belt_promotion: faker.number.int({ min: 2000, max: 2024 }),
+      trained_in_a_different_group: faker.company.name(),
+      first_capoeira_teacher: faker.person.fullName(),
     };
 
     await request(app).patch(`/people/${personId}`).send(updatedPayload).expect(200);

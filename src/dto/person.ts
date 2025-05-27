@@ -26,7 +26,7 @@ interface IPersonDTO {
   education_level?: string | null;
   course?: string | null;
   is_teacher?: boolean;
-  belt_id: UUID | null;
+  belt_id?: UUID | null;
   year_start_capoeira?: number | null;
   effective_capoeira_training_time?: number | null;
   year_of_last_belt_promotion?: number | null;
@@ -56,8 +56,8 @@ export class PersonDTO implements IPersonDTO {
   public education_level?;
   public course?;
   public is_teacher? = false;
-  public belt_id: UUID | null = null;
-  public center_id;
+  public belt_id?: UUID | null | undefined = null;
+  public center_id?;
   public year_start_capoeira?;
   public effective_capoeira_training_time?;
   public year_of_last_belt_promotion?;
