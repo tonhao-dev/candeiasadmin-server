@@ -1,5 +1,5 @@
-import { Genders } from '../../enum/gender';
 import { Knex } from 'knex';
+import { Genders } from '../../enum/gender';
 import { Race } from '../../enum/race';
 import { Status } from '../../enum/status';
 
@@ -43,7 +43,12 @@ export async function up(knex: Knex): Promise<void> {
     table.string('trained_in_a_different_group').nullable();
     table.string('first_capoeira_teacher').nullable();
     table.uuid('center_id').nullable().references('id').inTable('center').onDelete('CASCADE');
-    table.uuid('current_teacher_id').references('id').inTable('person').nullable();
+    table
+      .uuid('current_teacher_id')
+      .references('id')
+      .inTable('person')
+      .nullable()
+      .onDelete('CASCADE');
     table.uuid('guardian_id').nullable().references('id').inTable('guardian').onDelete('CASCADE');
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
