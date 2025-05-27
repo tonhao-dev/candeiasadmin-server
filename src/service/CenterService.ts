@@ -1,8 +1,8 @@
 import { UUID } from 'crypto';
+import { CenterDTO } from '../dto/center';
 import { Center } from '../entity/center';
 import { CenterRepository } from '../repository/centerRepository';
 import { IResponseModel } from '../types/response';
-import { CenterDTO } from '../dto/center';
 import { CenterTable } from '../types/table/centerTable';
 
 class CenterService {
@@ -52,8 +52,8 @@ class CenterService {
     const id = await this.centerRepository.saveOne(
       center.name,
       center.address,
-      center.latitude!,
-      center.longitude!
+      center.getLatitude()!,
+      center.getLongitude()!
     );
 
     return {
@@ -90,7 +90,12 @@ class CenterService {
       };
     }
 
-    await this.centerRepository.update(id, center);
+    await this.centerRepository.update(id, {
+      name: center.name,
+      address: center.address,
+      latitude: center.getLatitude(),
+      longitude: center.getLongitude(),
+    });
 
     return {
       message: 'Centro atualizado com sucesso',

@@ -1,13 +1,13 @@
 import { UUID } from 'crypto';
-import { ValidationError } from './error';
 import { ICenterDTO } from '../dto/center';
+import { ValidationError } from './error';
 
 class Center {
   private _id?: UUID;
   public name: string = '';
   public address: string = '';
-  public longitude?: number | null;
-  public latitude?: number | null;
+  private longitude?: number | null;
+  private latitude?: number | null;
   public validation: ValidationError = new ValidationError();
 
   constructor(centerDTO?: ICenterDTO) {
@@ -63,6 +63,14 @@ class Center {
     this.latitude = latitude;
     this.longitude = longitude;
     return true;
+  }
+
+  public getLatitude(): number | null | undefined {
+    return this.latitude;
+  }
+
+  public getLongitude(): number | null | undefined {
+    return this.longitude;
   }
 }
 
