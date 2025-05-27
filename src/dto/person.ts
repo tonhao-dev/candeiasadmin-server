@@ -26,7 +26,7 @@ interface IPersonDTO {
   education_level?: string | null;
   course?: string | null;
   is_teacher?: boolean;
-  belt_id?: string | null;
+  belt_id: UUID | null;
   year_start_capoeira?: number | null;
   effective_capoeira_training_time?: number | null;
   year_of_last_belt_promotion?: number | null;
@@ -56,6 +56,8 @@ export class PersonDTO implements IPersonDTO {
   public education_level?;
   public course?;
   public is_teacher? = false;
+  public belt_id: UUID | null = null;
+  public center_id;
   public year_start_capoeira?;
   public effective_capoeira_training_time?;
   public year_of_last_belt_promotion?;
@@ -91,6 +93,8 @@ export class PersonDTO implements IPersonDTO {
     this.trained_in_a_different_group = personDTO.trained_in_a_different_group ?? null;
     this.first_capoeira_teacher = personDTO.first_capoeira_teacher ?? null;
     this.current_teacher_id = personDTO.current_teacher_id ?? null;
+    this.belt_id = personDTO.belt_id ?? null;
+    this.center_id = personDTO.center_id ?? null;
 
     if (!personDTO.guardian || new Guardian(personDTO.guardian).validation.hasError) return;
 

@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
-import { IResponseModel } from '../types/response';
-import { PersonService } from '../service/PersonService';
-import { Record } from '../entity/record';
 import { UUID } from 'crypto';
+import { Request, Response } from 'express';
+import { Record } from '../entity/record';
+import { PersonService } from '../service/PersonService';
+import { IResponseModel } from '../types/response';
 
 class PersonController {
   private personService: PersonService;

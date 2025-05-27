@@ -80,6 +80,8 @@ export class PersonRepository implements IPersonRepository {
       trained_in_a_different_group: person.trained_in_a_different_group,
       first_capoeira_teacher: person.first_capoeira_teacher,
       current_teacher_id: person.current_teacher_id,
+      center_id: person.center_id,
+      belt_id: person.belt_id,
     };
 
     await db('person').where('id', id).update(personData);
@@ -95,6 +97,7 @@ export class PersonRepository implements IPersonRepository {
         'person.*',
         'guardian.name as guardian_name',
         'guardian.phone as guardian_phone',
+        'belt.id as belt_id',
         'belt.name as belt_name',
         'belt.title as belt_title',
         'belt.color_hex_code as belt_color_hex_code',
@@ -102,11 +105,17 @@ export class PersonRepository implements IPersonRepository {
         'belt_type.code as belt_type_code',
         'belt_type.range_start_in_years as belt_type_range_start_in_years',
         'belt_type.range_end_in_years as belt_type_range_end_in_years',
+        'person.current_teacher_id',
+        'teacher.id as teacher_id',
+        'teacher.name as teacher_name',
+        'teacher.phone as teacher_phone',
+        'teacher.nickname as teacher_nickname',
         'center.name as center_name'
       )
       .leftJoin('guardian', 'person.guardian_id', 'guardian.id')
       .leftJoin('belt', 'person.belt_id', 'belt.id')
       .leftJoin('belt_type', 'belt.belt_type_code', 'belt_type.code')
-      .leftJoin('center', 'person.center_id', 'center.id');
+      .leftJoin('center', 'person.center_id', 'center.id')
+      .leftJoin('person as teacher', 'person.current_teacher_id', 'teacher.id');
   }
 }

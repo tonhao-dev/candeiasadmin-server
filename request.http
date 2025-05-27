@@ -33,12 +33,12 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:4000/people/476f2a66-2aeb-4d01-8f55-b48fa11aac3c
+GET http://localhost:4000/people/7aa5dd5b-5ed3-4712-bb41-db73abe76c0b
 Content-Type: application/json
 
 ###
 
-PATCH http://localhost:4000/people/476f2a66-2aeb-4d01-8f55-b48fa11aac3c
+PATCH http://localhost:4000/people/7aa5dd5b-5ed3-4712-bb41-db73abe76c0b
 Content-Type: application/json
 
 {
@@ -63,7 +63,10 @@ Content-Type: application/json
   "effective_capoeira_training_time": 4,
   "year_of_last_belt_promotion": 2024,
   "trained_in_a_different_group": false,
-  "first_capoeira_teacher": "Professor Alladin"
+  "first_capoeira_teacher": "Professor Alladin",
+  "belt_id": "098d9b24-8aad-45a6-8ec4-08395facb90c",
+  "center_id": "24fb194d-23a4-4f38-9e06-9f97f77f193d",
+  "current_teacher_id": "392be016-28ad-4cf9-a1c2-b623d8a36777"
 }
 
 ###

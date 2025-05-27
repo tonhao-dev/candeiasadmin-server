@@ -1,12 +1,12 @@
+import { UUID } from 'crypto';
+import { differenceInYears, isAfter, isBefore, isValid } from 'date-fns';
 import { PersonDTO } from '../dto/person';
 import { Genders } from '../enum/gender';
-import { ISODate } from '../types/date';
-import { differenceInYears, isAfter, isBefore, isValid } from 'date-fns';
-import { ValidationError } from './error';
-import { Guardian } from './guardian';
 import { Race } from '../enum/race';
 import { Status } from '../enum/status';
-import { UUID } from 'crypto';
+import { ISODate } from '../types/date';
+import { ValidationError } from './error';
+import { Guardian } from './guardian';
 
 class Person {
   public id?: UUID;
@@ -36,6 +36,7 @@ class Person {
   public first_capoeira_teacher?: string | null;
   public center_id?: UUID | null;
   public current_teacher_id?: UUID | null;
+  public belt_id?: UUID | null;
 
   constructor(studentDTO: PersonDTO) {
     const validations = Person.validate(studentDTO);
@@ -69,6 +70,8 @@ class Person {
     this.trained_in_a_different_group = studentDTO.trained_in_a_different_group;
     this.first_capoeira_teacher = studentDTO.first_capoeira_teacher;
     this.current_teacher_id = studentDTO.current_teacher_id;
+    this.center_id = studentDTO.center_id;
+    this.belt_id = studentDTO.belt_id;
 
     if (new Guardian(studentDTO.guardian).validation.hasError) return;
 

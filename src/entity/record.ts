@@ -26,6 +26,7 @@ export class Record {
       course: student.course,
       isTeacher: student.is_teacher,
       belt: {
+        id: student.belt_id,
         name: student.belt_name,
         title: student.belt_title,
         color_hex_code: student.belt_color_hex_code,
@@ -37,7 +38,12 @@ export class Record {
       trained_in_a_different_group: student.trained_in_a_different_group,
       first_capoeira_teacher: student.first_capoeira_teacher,
       center_name: student.center_name,
-      current_teacher_id: student.current_teacher_id,
+      teacher: {
+        id: student.current_teacher_id,
+        name: student.teacher_name,
+        phone: student.teacher_phone,
+        nickname: student.teacher_nickname,
+      },
     };
   }
 }
