@@ -1,12 +1,12 @@
 import express from 'express';
 import passport from 'passport';
 
-import { PersonController } from './controller/PersonController';
-import { HealthCheckController } from './controller/HealthController';
 import { AuthController } from './controller/AuthController';
-import { TeacherController } from './controller/TeacherController';
 import { BeltController } from './controller/BeltController';
 import { CenterController } from './controller/CenterController';
+import { HealthCheckController } from './controller/HealthController';
+import { PersonController } from './controller/PersonController';
+import { TeacherController } from './controller/TeacherController';
 
 const routes = express.Router();
 
@@ -57,6 +57,11 @@ routes.patch(
   '/teachers/:id/revokeTeacherStatus',
   authController.isLoggedIn.bind(authController),
   teacherController.revokeTeacherStatus.bind(teacherController)
+);
+routes.patch(
+  '/teachers/:id/updateCenter',
+  authController.isLoggedIn.bind(authController),
+  teacherController.updateCenter.bind(teacherController)
 );
 routes.get('/belts', beltController.getAll.bind(beltController));
 routes.get('/centers', centerController.getAll.bind(centerController));

@@ -26,6 +26,16 @@ export class TeacherRepository implements ITeacherRepository {
     return isSuccessful > 0;
   }
 
+  async updateCenter(id: UUID, centerId: UUID) {
+    const centerExists = await db('center').where('id', centerId).first();
+    if (!centerExists) {
+      console.log(`Centro de treinamento com ID ${centerId} não encontrado.`);
+      return false;
+    }
+    const isSuccessful = await db('person').where('id', id).update({ center_id: centerId });
+    return isSuccessful > 0;
+  }
+
   private _buildPersonQuery() {
     return db('person')
       .select(
@@ -39,11 +49,17 @@ export class TeacherRepository implements ITeacherRepository {
         'belt_type.code as belt_type_code',
         'belt_type.range_start_in_years as belt_type_range_start_in_years',
         'belt_type.range_end_in_years as belt_type_range_end_in_years',
+        'teacher.id as teacher_id',
+        'teacher.name as teacher_name',
+        'teacher.phone as teacher_phone',
+        'teacher.nickname as teacher_nickname',
+        'center.name as center_name',
         'center.name as center_name'
       )
       .leftJoin('guardian', 'person.guardian_id', 'guardian.id')
       .leftJoin('belt', 'person.belt_id', 'belt.id')
       .leftJoin('belt_type', 'belt.belt_type_code', 'belt_type.code')
-      .leftJoin('center', 'person.center_id', 'center.id');
+      .leftJoin('center', 'person.center_id', 'center.id')
+      .leftJoin('person as teacher', 'person.current_teacher_id', 'teacher.id');
   }
 }

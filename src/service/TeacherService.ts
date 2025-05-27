@@ -1,7 +1,7 @@
 import { UUID } from 'crypto';
+import { Record } from '../entity/record';
 import { TeacherRepository } from '../repository/teacherRepository';
 import { IResponseModel } from '../types/response';
-import { Record } from '../entity/record';
 
 class TeacherService {
   private teacherRepository: TeacherRepository;
@@ -62,6 +62,24 @@ class TeacherService {
       validations: [],
       result: isSuccessful,
       message: 'O status de professor foi revertido com sucesso',
+    };
+  }
+
+  async updateCenter(id: UUID, centerId: UUID): Promise<IResponseModel<boolean>> {
+    const isSuccessful = await this.teacherRepository.updateCenter(id, centerId);
+
+    if (!isSuccessful) {
+      return {
+        validations: ['Não foi possível atualizar o centro do professor'],
+        result: false,
+        message: 'Não foi possível atualizar o centro do professor',
+      };
+    }
+
+    return {
+      validations: [],
+      result: isSuccessful,
+      message: 'Centro de treinamento do professor atualizado com sucesso',
     };
   }
 }
