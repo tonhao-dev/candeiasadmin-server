@@ -100,6 +100,12 @@ export async function seed(knex: Knex) {
       belt_type_code: 'ADULTO',
     },
     {
+      name: 'verde e amarelo',
+      title: 'aluno',
+      color_hex_code: '#1b9123,#f8f007',
+      belt_type_code: 'ADULTO',
+    },
+    {
       name: 'amarelo',
       title: 'aluno',
       color_hex_code: '#f8f007',
