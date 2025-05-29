@@ -4,12 +4,14 @@ import passport from 'passport';
 import { AuthController } from './controller/AuthController';
 import { BeltController } from './controller/BeltController';
 import { CenterController } from './controller/CenterController';
+import { DashboardController } from './controller/DashboardController';
 import { HealthCheckController } from './controller/HealthController';
 import { PersonController } from './controller/PersonController';
 import { TeacherController } from './controller/TeacherController';
 
 const routes = express.Router();
 
+const dashboardController = new DashboardController();
 const personController = new PersonController();
 const healthCheckController = new HealthCheckController();
 const authController = new AuthController();
@@ -18,6 +20,7 @@ const beltController = new BeltController();
 const centerController = new CenterController();
 
 routes.get('/', healthCheckController.check.bind(healthCheckController));
+routes.get('/dashboard', dashboardController.getAll.bind(dashboardController));
 routes.get(
   '/students',
   authController.isLoggedIn.bind(authController),

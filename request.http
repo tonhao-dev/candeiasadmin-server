@@ -2,6 +2,10 @@ GET http://localhost:4000
 
 ###
 
+GET http://localhost:4000/dashboard?id=82bdf7d7-1e37-4a0d-89c6-ced056533669
+
+###
+
 GET http://localhost:4000/students
 
 ###
@@ -22,23 +26,20 @@ POST http://localhost:4000/people
 Content-Type: application/json
 
 {
-  "name": "Ezequiel Soares da Silva",
-  "birthday": "2020-02-05T05:00:00.000Z",
+  "name": "Antônio Barbosa da Silva",
+  "birthday": "1974-05-26T00:00:00.000Z",
   "gender": 1,
-  "guardian": {
-    "name": "Tonhão da Silva",
-    "phone": "68992065657"
-  }
+  "phone": "6899728955"
 }
 
 ###
 
-GET http://localhost:4000/people/3b0fc072-55bf-4a92-b533-9d1ebc57c665
+GET http://localhost:4000/people/392be016-28ad-4cf9-a1c2-b623d8a36777
 Content-Type: application/json
 
 ###
 
-PATCH http://localhost:4000/people/3b0fc072-55bf-4a92-b533-9d1ebc57c665
+PATCH http://localhost:4000/people/d92f84f9-6e3f-4798-9a13-aa09120d1800
 Content-Type: application/json
 
 {
@@ -64,9 +65,22 @@ Content-Type: application/json
   "year_of_last_belt_promotion": 2024,
   "trained_in_a_different_group": false,
   "first_capoeira_teacher": "Professor Alladin",
-  "belt_id": "0eabd9d3-d1ef-4fad-8636-e3624f834be4",
+  "belt_id": "53879732-952b-4c16-8159-f5434e4b3352",
   "center_id": "35423623-f284-47a8-936e-d46ae7d1adf3",
   "current_teacher_id": "392be016-28ad-4cf9-a1c2-b623d8a36777"
+}
+
+###
+
+PATCH http://localhost:4000/people/d208e37e-b580-43a3-b5a1-8ddcea731108
+Content-Type: application/json
+
+{
+  "current_teacher_id": "82bdf7d7-1e37-4a0d-89c6-ced056533669",
+  "guardian": {
+    "name": "Mãe da Tigresa",
+    "phone": "6899728955"
+  }
 }
 
 ###

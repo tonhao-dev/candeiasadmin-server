@@ -1,25 +1,34 @@
-import type { ChartData, ChartOptions } from 'chart.js';
+import { UUID } from 'crypto';
 import { Request, Response } from 'express';
-import { CenterService } from '../service/CenterService';
+import { DashboardService } from '../service/DashboardService';
 import { IResponseModel } from '../types/response';
+import { IDashboardResult } from '../types/table/dashboard';
 
-class CenterController {
-  private centerService: CenterService;
+class DashboardController {
+  private dashboardService: DashboardService;
 
-  constructor({ centerService } = { centerService: new CenterService() }) {
-    this.centerService = centerService;
+  constructor({ dashboardService } = { dashboardService: new DashboardService() }) {
+    this.dashboardService = dashboardService;
   }
 
-  async getAll(
-    _: Request,
-    response: Response<IResponseModel<Array<{ options: ChartOptions; data: ChartData }>>>
-  ) {
+  async getAll(request: Request, response: Response<IResponseModel<Array<IDashboardResult>>>) {
+    const id = request.query?.id ?? null;
+
+    if (!id)
+      return response.status(400).json({
+        message: 'ID é obrigatório',
+        validations: [],
+        result: null,
+      });
+
+    const result = await this.dashboardService.getAll(id as UUID);
+
     return response.json({
       message: 'Dashboard',
       validations: [],
-      result: [],
+      result,
     });
   }
 }
 
-export { CenterController };
+export { DashboardController };
