@@ -24,4 +24,24 @@ export class DashboardRepository {
 
     return parseInt(result.rows[0].total_students);
   }
+
+  async countOfNewStudents(id: UUID): Promise<number> {
+    const result = await db.raw(
+      `
+    WITH RECURSIVE recursive_students AS (
+      SELECT id, current_teacher_id, created_at
+      FROM person
+      WHERE current_teacher_id = ? AND deleted_at IS NULL AND created_at >= NOW() - INTERVAL '90 days'
+      UNION ALL
+      SELECT p.id, p.current_teacher_id, p.created_at
+      FROM person p
+      INNER JOIN recursive_students rs ON p.current_teacher_id = rs.id
+      WHERE p.deleted_at IS NULL AND p.created_at >= NOW() - INTERVAL '90 days'
+    )
+    SELECT COUNT(*) AS total_new_students FROM recursive_students;
+    `,
+      [id]
+    );
+    return parseInt(result.rows[0].total_new_students);
+  }
 }
