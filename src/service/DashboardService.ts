@@ -10,7 +10,11 @@ class DashboardService {
   }
 
   async getAll(id: UUID): Promise<Array<IDashboardResult>> {
-    return Promise.all([this.buildCountOfStudents(id), this.buildCountOfNewStudents(id)]);
+    return Promise.all([
+      this.buildCountOfStudents(id),
+      this.buildCountOfNewStudents(id),
+      this.buildHighestBeltInNetwork(id),
+    ]);
   }
 
   private async buildCountOfStudents(id: UUID): Promise<IDashboardResult> {
@@ -30,6 +34,16 @@ class DashboardService {
       title: 'Novos alunos (últimos 90 dias)',
       type: 'text',
       data: count.toString(),
+    };
+  }
+
+  private async buildHighestBeltInNetwork(id: UUID): Promise<IDashboardResult> {
+    const belt = await this.dashboardRepository.getHighestBeltInNetwork(id);
+
+    return {
+      title: 'Maior graduação na rede',
+      type: 'text',
+      data: belt.name,
     };
   }
 }
