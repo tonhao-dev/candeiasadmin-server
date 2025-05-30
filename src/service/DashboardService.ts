@@ -15,6 +15,7 @@ class DashboardService {
       this.buildCountOfNewStudents(id),
       this.buildHighestBeltInNetwork(id),
       this.buildAgeDistribution(id),
+      this.buildBeltDistribution(id),
     ]);
   }
 
@@ -69,11 +70,42 @@ class DashboardService {
         responsive: true,
         plugins: {
           legend: {
-            position: 'bottom',
+            position: 'top',
           },
           title: {
             display: true,
             text: 'Idade dos alunos',
+          },
+        },
+      },
+    };
+  }
+
+  private async buildBeltDistribution(id: UUID): Promise<IDashboardResult<'bar'>> {
+    const beltDistribution = await this.dashboardRepository.getBeltDistribution(id);
+
+    return {
+      title: 'Distribuição de graduações',
+      type: 'bar',
+      data: {
+        labels: beltDistribution.map(item => item.belt),
+        datasets: [
+          {
+            label: 'Quantidade de alunos por graduação',
+            data: beltDistribution.map(item => item.count),
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Graduação dos alunos',
           },
         },
       },
