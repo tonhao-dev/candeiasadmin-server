@@ -57,38 +57,12 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.table('person', table => {
-    table.dropColumn('id');
-    table.dropColumn('name');
-    table.dropColumn('nickname');
-    table.dropColumn('birthday');
-    table.dropColumn('gender');
-    table.dropColumn('is_pwd');
-    table.dropColumn('race');
-    table.dropColumn('status');
-    table.dropColumn('email');
-    table.dropColumn('address');
-    table.dropColumn('phone');
-    table.dropColumn('facebook');
-    table.dropColumn('instagram');
-    table.dropColumn('tiktok');
-    table.dropColumn('job');
-    table.dropColumn('education_level');
-    table.dropColumn('course');
-    table.dropColumn('is_teacher');
-    table.dropColumn('belt_id');
-    table.dropColumn('year_start_capoeira');
-    table.dropColumn('effective_capoeira_training_time');
-    table.dropColumn('year_of_last_belt_promotion');
-    table.dropColumn('trained_in_a_different_group');
-    table.dropColumn('first_capoeira_teacher');
-    table.dropColumn('center_id');
-    table.dropColumn('current_teacher_id');
-    table.dropColumn('guardian_id');
-    table.dropColumn('created_at');
-    table.dropColumn('updated_at');
-    table.dropColumn('deleted_at');
+  await knex.schema.alterTable('person', table => {
+    table.dropForeign(['current_teacher_id']);
+    table.dropForeign(['belt_id']);
+    table.dropForeign(['center_id']);
+    table.dropForeign(['guardian_id']);
   });
 
-  return knex.schema.dropTable('person');
+  return knex.schema.dropTableIfExists('person');
 }
