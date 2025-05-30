@@ -1,5 +1,6 @@
 import { UUID } from 'crypto';
 import db from '../database/connection';
+import { Gender } from '../entity/gender';
 import { Belt } from '../types/table/belt';
 import { BeltTable } from '../types/table/beltTable';
 
@@ -154,6 +155,35 @@ export class DashboardRepository {
 
     return result.rows.map((row: { belt: string; count: number }) => ({
       belt: row.belt,
+      count: Number(row.count),
+    }));
+  }
+
+  async getGenderDistribution(id: UUID): Promise<Array<{ gender: string; count: number }>> {
+    const result = await db.raw(
+      `
+    WITH RECURSIVE recursive_students AS (
+      SELECT id, current_teacher_id, belt_id
+      FROM person
+      WHERE current_teacher_id = ? AND deleted_at IS NULL
+
+      UNION ALL
+
+      SELECT p.id, p.current_teacher_id, p.belt_id
+      FROM person p
+      INNER JOIN recursive_students rs ON p.current_teacher_id = rs.id
+      WHERE p.deleted_at IS NULL
+    )
+    SELECT person.gender AS gender, COUNT(*) AS count
+    FROM recursive_students
+      INNER JOIN person ON recursive_students.id = person.id
+    GROUP BY person.gender
+    `,
+      [id]
+    );
+
+    return result.rows.map((row: { gender: string; count: number }) => ({
+      gender: Gender.getGenderName(row.gender),
       count: Number(row.count),
     }));
   }

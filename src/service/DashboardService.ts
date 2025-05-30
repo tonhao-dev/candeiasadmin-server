@@ -16,6 +16,7 @@ class DashboardService {
       this.buildHighestBeltInNetwork(id),
       this.buildAgeDistribution(id),
       this.buildBeltDistribution(id),
+      this.buildGenderDistribution(id),
     ]);
   }
 
@@ -106,6 +107,38 @@ class DashboardService {
           title: {
             display: true,
             text: 'Graduação dos alunos',
+          },
+        },
+      },
+    };
+  }
+
+  private async buildGenderDistribution(id: UUID): Promise<IDashboardResult<'pie'>> {
+    const genderDistribution = await this.dashboardRepository.getGenderDistribution(id);
+
+    return {
+      title: 'Distribuição de gêneros',
+      type: 'pie',
+      data: {
+        labels: genderDistribution.map(item => item.gender),
+        datasets: [
+          {
+            label: 'Distribuição de gêneros',
+            data: genderDistribution.map(item => item.count),
+            backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+            hoverOffset: 10,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Gênero dos alunos',
           },
         },
       },
