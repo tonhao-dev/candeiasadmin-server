@@ -14,6 +14,7 @@ class DashboardService {
       this.buildCountOfStudents(id),
       this.buildCountOfNewStudents(id),
       this.buildHighestBeltInNetwork(id),
+      this.buildAgeDistribution(id),
     ]);
   }
 
@@ -44,6 +45,38 @@ class DashboardService {
       title: 'Maior graduação na rede',
       type: 'text',
       data: belt.name,
+    };
+  }
+
+  private async buildAgeDistribution(id: UUID): Promise<IDashboardResult<'pie'>> {
+    const ageDistribution = await this.dashboardRepository.getAgeDistribution(id);
+
+    return {
+      title: 'Distribuição de idades',
+      type: 'pie',
+      data: {
+        labels: ageDistribution.map(item => item.group),
+        datasets: [
+          {
+            label: 'Distribuição dos alunos por idade',
+            data: ageDistribution.map(item => item.count),
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+            hoverOffset: 10,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+          },
+          title: {
+            display: true,
+            text: 'Idade dos alunos',
+          },
+        },
+      },
     };
   }
 }

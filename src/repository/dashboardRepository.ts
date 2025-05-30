@@ -71,4 +71,61 @@ export class DashboardRepository {
 
     return result.rows[0] as BeltTable;
   }
+
+  async getAgeDistribution(id: UUID): Promise<Array<{ group: number; count: number }>> {
+    const result = await db.raw(
+      `
+    WITH RECURSIVE recursive_students AS (
+      SELECT id, current_teacher_id, birthday
+      FROM person
+      WHERE current_teacher_id = ? AND deleted_at IS NULL
+
+      UNION ALL
+
+      SELECT p.id, p.current_teacher_id, p.birthday
+      FROM person p
+      INNER JOIN recursive_students rs ON p.current_teacher_id = rs.id
+      WHERE p.deleted_at IS NULL
+    ),
+    ages AS (
+      SELECT
+        id,
+        EXTRACT(YEAR FROM age(CURRENT_DATE, birthday)) AS age
+      FROM recursive_students
+      WHERE birthday IS NOT NULL
+    ),
+    grouped AS (
+      SELECT
+        CASE
+          WHEN age < 3 THEN 'baby (0 a 2 anos)'
+          WHEN age BETWEEN 3 AND 7 THEN 'infantil (3 a 7 anos)'
+          WHEN age BETWEEN 8 AND 13 THEN 'juvenil (8 a 13 anos)'
+          WHEN age BETWEEN 14 AND 17 THEN 'adolescente (14 a 17 anos)'
+          WHEN age BETWEEN 18 AND 39 THEN 'adulto (18 a 39 anos)'
+          ELSE 'master (40 anos ou mais)'
+        END AS age_group
+      FROM ages
+    )
+    SELECT age_group, COUNT(*) AS count
+    FROM grouped
+    GROUP BY age_group
+    ORDER BY
+      CASE age_group
+        WHEN 'baby' THEN 1
+        WHEN 'kids' THEN 2
+        WHEN 'youth' THEN 3
+        WHEN 'teen' THEN 4
+        WHEN 'adult' THEN 5
+        WHEN 'master' THEN 6
+        ELSE 7
+      END
+    `,
+      [id]
+    );
+
+    return result.rows.map((row: { age_group: string; count: number }) => ({
+      group: row.age_group,
+      count: Number(row.count),
+    }));
+  }
 }
