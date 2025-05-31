@@ -1,4 +1,5 @@
 import { UUID } from 'crypto';
+import { RaceEntity } from '../entity/race';
 import { DashboardRepository } from '../repository/dashboardRepository';
 import { IDashboardResult } from '../types/table/dashboard';
 
@@ -17,6 +18,7 @@ class DashboardService {
       this.buildAgeDistribution(id),
       this.buildBeltDistribution(id),
       this.buildGenderDistribution(id),
+      this.buildRaceDistribution(id),
     ]);
   }
 
@@ -139,6 +141,38 @@ class DashboardService {
           title: {
             display: true,
             text: 'Gênero dos alunos',
+          },
+        },
+      },
+    };
+  }
+
+  private async buildRaceDistribution(id: UUID): Promise<IDashboardResult<'pie'>> {
+    const raceDistribution = await this.dashboardRepository.getRaceDistribution(id);
+
+    return {
+      title: 'Distribuição racial',
+      type: 'pie',
+      data: {
+        labels: raceDistribution.map(item => RaceEntity.getRaceName(item.race)),
+        datasets: [
+          {
+            label: 'Distribuição racial',
+            data: raceDistribution.map(item => item.count),
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+            hoverOffset: 10,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Distribuição racial',
           },
         },
       },

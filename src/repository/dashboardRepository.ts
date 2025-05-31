@@ -187,4 +187,33 @@ export class DashboardRepository {
       count: Number(row.count),
     }));
   }
+
+  async getRaceDistribution(id: UUID): Promise<Array<{ race: string; count: number }>> {
+    const result = await db.raw(
+      `
+    WITH RECURSIVE recursive_students AS (
+      SELECT id, current_teacher_id, race
+      FROM person
+      WHERE current_teacher_id = ? AND deleted_at IS NULL
+
+      UNION ALL
+
+      SELECT p.id, p.current_teacher_id, p.race
+      FROM person p
+      INNER JOIN recursive_students rs ON p.current_teacher_id = rs.id
+      WHERE p.deleted_at IS NULL
+    )
+    SELECT person.race AS race, COUNT(*) AS count
+    FROM recursive_students
+      INNER JOIN person ON recursive_students.id = person.id
+    GROUP BY person.race
+    `,
+      [id]
+    );
+
+    return result.rows.map((row: { race: number; count: number }) => ({
+      race: row.race,
+      count: Number(row.count),
+    }));
+  }
 }

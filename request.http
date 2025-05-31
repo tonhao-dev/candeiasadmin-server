@@ -2,7 +2,7 @@ GET http://localhost:4000
 
 ###
 
-GET http://localhost:4000/dashboard?id=82bdf7d7-1e37-4a0d-89c6-ced056533669
+GET http://localhost:4000/dashboard?id=5d79506a-6195-4394-a4b3-a54af230d7f3
 
 ###
 
@@ -34,7 +34,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:4000/people/392be016-28ad-4cf9-a1c2-b623d8a36777
+GET http://localhost:4000/people/e2f267d9-7b3e-410d-b4a7-2e360b94a6f0
 Content-Type: application/json
 
 ###
@@ -72,15 +72,11 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:4000/people/d208e37e-b580-43a3-b5a1-8ddcea731108
+PATCH http://localhost:4000/people/9a6f5cf4-15b1-4f51-a4e3-ec4dae1326dc
 Content-Type: application/json
 
 {
-  "current_teacher_id": "82bdf7d7-1e37-4a0d-89c6-ced056533669",
-  "guardian": {
-    "name": "Mãe da Tigresa",
-    "phone": "6899728955"
-  }
+  "race": "2"
 }
 
 ###
@@ -99,7 +95,7 @@ POST http://localhost:4000/logout
 
 ###
 
-PATCH http://localhost:4000/people/392be016-28ad-4cf9-a1c2-b623d8a36777/graduateToTeacher
+PATCH http://localhost:4000/people/ed8e325a-2b28-4c73-bb20-9ce5e41bb910/graduateToTeacher
 
 ###
 
