@@ -32,7 +32,7 @@ describe('POST /people', () => {
       .expect(201);
     expect(response.body.result).toBeDefined();
 
-    await db('person').where({ id: response.body.result }).del();
+    await db('person').where('id', response.body.result).del();
   });
 
   it('Deve criar um aluno criança com todas as informações completas', async function () {
@@ -72,7 +72,7 @@ describe('POST /people', () => {
       .expect(201);
     expect(response.body.result).toBeDefined();
 
-    await db('person').where({ id: response.body.result }).del();
+    await db('person').where('id', response.body.result).del();
   });
 
   it('Deve retornar 400 se o nome de um aluno de maior não for informado', function () {
@@ -100,7 +100,7 @@ describe('POST /people', () => {
       .expect(201);
     expect(response.body.result).toBeDefined();
 
-    await db('person').where({ id: response.body.result }).del();
+    await db('person').where('id', response.body.result).del();
   });
 
   it('Deve retornar 400 quando o nome do responsável do aluno criança não for informado', function () {
@@ -147,7 +147,7 @@ describe('GET /people/:id', () => {
     expect(response.body.result).toBeDefined();
     request(app).get(`/students/${response.body.result}`).expect(201);
 
-    await db('person').where({ id: response.body.result }).del();
+    await db('person').where('id', response.body.result).del();
   });
 
   it('Deve retornar 400 se o ID de uma pessoa não for encontrado', function () {
@@ -210,7 +210,7 @@ describe('PATCH /people/:id - Atualiza todos os campos', () => {
       );
     }
 
-    await db('person').where({ id: personId }).del();
+    await db('person').where('id', personId).del();
   });
 });
 
