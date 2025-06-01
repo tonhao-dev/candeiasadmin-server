@@ -1,8 +1,9 @@
+import { faker } from '@faker-js/faker';
+import { subYears } from 'date-fns';
 import request from 'supertest';
 import { app } from '../../app';
-import { faker } from '@faker-js/faker';
+import db from '../../database/connection';
 import { Genders } from '../../enum/gender';
-import { subYears } from 'date-fns';
 
 describe('TeacherController', () => {
   describe('PATCH /people/:id/graduateToTeacher', () => {
@@ -26,6 +27,8 @@ describe('TeacherController', () => {
         .expect(200);
 
       expect(graduateResponse.body.result).toBe(true);
+
+      await db('person').where({ id: studentId }).del();
     });
 
     it('Deve retornar 400 ao tentar promover um ID inválido', async () => {
@@ -76,6 +79,8 @@ describe('TeacherController', () => {
         .expect(200);
 
       expect(revokeResponse.body.result).toBe(true);
+
+      await db('person').where({ id: studentId }).del();
     });
 
     it('Deve retornar 400 ao tentar remover status de um ID inválido', async () => {

@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import { subYears } from 'date-fns';
 import request from 'supertest';
 import { app } from '../../app';
+import db from '../../database/connection';
 import { Genders } from '../../enum/gender';
 import { Race } from '../../enum/race';
 import { Status } from '../../enum/status';
@@ -30,6 +31,8 @@ describe('POST /people', () => {
       .expect('Content-Type', /json/)
       .expect(201);
     expect(response.body.result).toBeDefined();
+
+    await db('person').where({ id: response.body.result }).del();
   });
 
   it('Deve criar um aluno criança com todas as informações completas', async function () {
@@ -68,6 +71,8 @@ describe('POST /people', () => {
       .set('Accept', 'application/json')
       .expect(201);
     expect(response.body.result).toBeDefined();
+
+    await db('person').where({ id: response.body.result }).del();
   });
 
   it('Deve retornar 400 se o nome de um aluno de maior não for informado', function () {
@@ -94,6 +99,8 @@ describe('POST /people', () => {
       })
       .expect(201);
     expect(response.body.result).toBeDefined();
+
+    await db('person').where({ id: response.body.result }).del();
   });
 
   it('Deve retornar 400 quando o nome do responsável do aluno criança não for informado', function () {
@@ -139,6 +146,8 @@ describe('GET /people/:id', () => {
       .expect('Content-Type', /json/);
     expect(response.body.result).toBeDefined();
     request(app).get(`/students/${response.body.result}`).expect(201);
+
+    await db('person').where({ id: response.body.result }).del();
   });
 
   it('Deve retornar 400 se o ID de uma pessoa não for encontrado', function () {
@@ -200,6 +209,8 @@ describe('PATCH /people/:id - Atualiza todos os campos', () => {
         String(updatedPayload[key as keyof typeof updatedPayload])
       );
     }
+
+    await db('person').where({ id: personId }).del();
   });
 });
 
@@ -216,13 +227,13 @@ describe('DELETE /person/:id', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/);
     const personID = response.body.result;
-    await request(app).delete(`/people/${personID}`);
+    await request(app).del(`/people/${personID}`);
     request(app).get(`/people/${personID}`).expect(400);
   });
 
   it('Deve retornar 400 se o ID do aluno não for encontrado', function () {
     return request(app)
-      .delete('/people/00000000-0000-0000-0000-000000000000')
+      .del('/people/00000000-0000-0000-0000-000000000000')
       .set('Accept', 'application/json')
       .expect(400);
   });
