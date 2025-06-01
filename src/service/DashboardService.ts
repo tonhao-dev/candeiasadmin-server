@@ -49,7 +49,7 @@ class DashboardService {
     return {
       title: 'Maior graduação na rede',
       type: 'text',
-      data: belt.name,
+      data: belt?.name ?? 'N/A',
     };
   }
 

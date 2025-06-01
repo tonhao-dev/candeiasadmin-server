@@ -48,7 +48,7 @@ export class DashboardRepository {
     return parseInt(result.rows[0].total_new_students);
   }
 
-  async getHighestBeltInNetwork(id: UUID): Promise<Belt> {
+  async getHighestBeltInNetwork(id: UUID): Promise<Belt | undefined> {
     const result = await db.raw(
       `
     WITH RECURSIVE recursive_students AS (
@@ -70,7 +70,7 @@ export class DashboardRepository {
       [id]
     );
 
-    return result.rows[0] as BeltTable;
+    return result.rows[0] as BeltTable | undefined;
   }
 
   async getAgeDistribution(id: UUID): Promise<Array<{ group: number; count: number }>> {
