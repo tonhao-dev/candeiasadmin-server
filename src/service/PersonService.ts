@@ -80,15 +80,16 @@ class PersonService {
         ...personDTO,
         guardian: {
           ...existingGuardian,
+          ...personDTO.guardian,
         },
       })
     );
 
-    if (!!existingGuardian && !!person.guardian) {
+    if (existingGuardian.id !== null && !!person.guardian) {
       this.guardianRepository.update(existingGuardian.id, person.guardian);
     }
 
-    if (!existingGuardian && person.guardian) {
+    if (existingGuardian.id === null && person.guardian) {
       const guardian = await this.guardianRepository.create(person.guardian);
       person.guardian.id = guardian.id;
     }
