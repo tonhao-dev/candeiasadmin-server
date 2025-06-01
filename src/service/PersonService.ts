@@ -1,19 +1,19 @@
+import { UUID } from 'crypto';
 import { PersonDTO } from '../dto/person';
 import { Person } from '../entity/person';
 import { Record } from '../entity/record';
-import { IResponseModel } from '../types/response';
+import { GuardianRepository } from '../repository/guardianRepository';
 import { PersonRepository } from '../repository/personRepository';
-import { UUID } from 'crypto';
+import { IResponseModel } from '../types/response';
 
 class PersonService {
-  private repository: PersonRepository;
-
-  constructor({ repository } = { repository: new PersonRepository() }) {
-    this.repository = repository;
-  }
+  constructor(
+    private personRepository: PersonRepository = new PersonRepository(),
+    private guardianRepository: GuardianRepository = new GuardianRepository()
+  ) {}
 
   async getOne(id: string): Promise<IResponseModel<Record>> {
-    const person = await this.repository.getOne(id);
+    const person = await this.personRepository.getOne(id);
 
     if (!person) {
       return {
@@ -31,7 +31,7 @@ class PersonService {
   }
 
   async getAllStudents(): Promise<IResponseModel<Record[]>> {
-    const people = await this.repository.getAllStudents();
+    const people = await this.personRepository.getAllStudents();
     const records = people.map(person => new Record(person));
 
     return {
@@ -52,7 +52,7 @@ class PersonService {
       };
     }
 
-    const id = await this.repository.saveOne(person);
+    const id = await this.personRepository.saveOne(person);
 
     return {
       message: '',
@@ -62,7 +62,7 @@ class PersonService {
   }
 
   async update(id: UUID, personDTO: PersonDTO): Promise<IResponseModel<string>> {
-    const personData = await this.repository.getOne(id);
+    const personData = await this.personRepository.getOne(id);
 
     if (!personData) {
       return {
@@ -72,12 +72,26 @@ class PersonService {
       };
     }
 
+    const existingGuardian = await this.guardianRepository.getByPersonId(id);
+
     const person = new Person(
       new PersonDTO({
         ...personData,
         ...personDTO,
+        guardian: {
+          ...existingGuardian,
+        },
       })
     );
+
+    if (!!existingGuardian && !!person.guardian) {
+      this.guardianRepository.update(existingGuardian.id, person.guardian);
+    }
+
+    if (!existingGuardian && person.guardian) {
+      const guardian = await this.guardianRepository.create(person.guardian);
+      person.guardian.id = guardian.id;
+    }
 
     if (person.validation.hasError) {
       return {
@@ -87,17 +101,17 @@ class PersonService {
       };
     }
 
-    await this.repository.updateOne(id, person);
+    await this.personRepository.updateOne(id, person);
 
     return {
-      message: '',
+      message: 'As informações foram atualizadas com sucesso.',
       result: id,
       validations: [],
     };
   }
 
   async delete(id: UUID): Promise<IResponseModel<string>> {
-    const personData = await this.repository.getOne(id);
+    const personData = await this.personRepository.getOne(id);
 
     if (!personData) {
       return {
@@ -107,7 +121,7 @@ class PersonService {
       };
     }
 
-    await this.repository.deleteOne(id);
+    await this.personRepository.deleteOne(id);
 
     return {
       message: '',

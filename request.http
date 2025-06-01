@@ -2,7 +2,7 @@ GET http://localhost:4000
 
 ###
 
-GET http://localhost:4000/dashboard?id=5d79506a-6195-4394-a4b3-a54af230d7f3
+GET http://localhost:4000/dashboard?id=e2f267d9-7b3e-410d-b4a7-2e360b94a6f0
 
 ###
 
@@ -72,12 +72,17 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:4000/people/9a6f5cf4-15b1-4f51-a4e3-ec4dae1326dc
+PATCH http://localhost:4000/people/e2f267d9-7b3e-410d-b4a7-2e360b94a6f0
 Content-Type: application/json
 
 {
-  "race": "2"
+  "race": "3"
 }
+
+###
+
+GET http://localhost:4000/people/e2f267d9-7b3e-410d-b4a7-2e360b94a6f0
+Content-Type: application/json
 
 ###
 

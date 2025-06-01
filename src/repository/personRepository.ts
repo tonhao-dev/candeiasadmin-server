@@ -82,6 +82,7 @@ export class PersonRepository implements IPersonRepository {
       current_teacher_id: person.current_teacher_id,
       center_id: person.center_id,
       belt_id: person.belt_id,
+      guardian_id: person.guardian?.id,
     };
 
     await db('person').where('id', id).update(personData);
