@@ -1,9 +1,11 @@
+import { UUID } from 'crypto';
 import { IGuardianDTO } from '../dto/guardian';
 import { ValidationError } from './error';
 
 class Guardian {
-  public name?: string = '';
-  public phone?: string = '';
+  public id?: UUID;
+  public name: string = '';
+  public phone: string = '';
   public validation: ValidationError = new ValidationError();
 
   constructor(guardianDTO?: IGuardianDTO) {
@@ -14,6 +16,7 @@ class Guardian {
       return;
     }
 
+    this.id = guardianDTO.id;
     this.name = guardianDTO.name;
     this.phone = guardianDTO.phone;
   }
