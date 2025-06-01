@@ -111,6 +111,8 @@ describe('CenterController', () => {
       const deleteResponse = await request(app).delete(`/centers/${createdId}`).expect(200);
 
       expect(deleteResponse.body.result).toBe(createdId);
+
+      await db('center').where({ id: createdId }).del();
     });
   });
 });

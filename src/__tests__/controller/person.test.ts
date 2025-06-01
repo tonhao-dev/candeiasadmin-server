@@ -22,7 +22,7 @@ describe('POST /people', () => {
     const response = await request(app)
       .post('/people')
       .send({
-        name: 'Luis Santiago',
+        name: faker.person.fullName(),
         birthday: subYears(new Date(), 20).toISOString(),
         gender: Genders.Male,
         email: faker.internet.email(),
@@ -90,7 +90,7 @@ describe('POST /people', () => {
       .post('/people')
       .set('Accept', 'application/json')
       .send({
-        name: 'Luis Santiago',
+        name: faker.person.fullName(),
         birthday: subYears(new Date(), 10),
         guardian: {
           name: faker.person.fullName(),
@@ -107,7 +107,7 @@ describe('POST /people', () => {
     return request(app)
       .post('/people')
       .send({
-        name: 'Luis Santiago',
+        name: faker.person.fullName(),
         birthday: subYears(new Date(), 20),
         guardian: {
           phone: faker.phone.number(),
@@ -121,7 +121,7 @@ describe('POST /people', () => {
     return request(app)
       .post('/people')
       .send({
-        name: 'Luis Santiago',
+        name: faker.person.fullName(),
         birthday: subYears(new Date(), 10),
         guardian: {
           name: faker.person.fullName(),
@@ -137,7 +137,7 @@ describe('GET /people/:id', () => {
     const response = await request(app)
       .post('/people')
       .send({
-        name: 'Luis Santiago',
+        name: faker.person.fullName(),
         birthday: subYears(new Date(), 20).toISOString(),
         gender: Genders.Male,
         email: faker.internet.email(),
@@ -145,7 +145,8 @@ describe('GET /people/:id', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/);
     expect(response.body.result).toBeDefined();
-    request(app).get(`/students/${response.body.result}`).expect(201);
+
+    request(app).get(`/students/${response.body.result}`).expect(200);
 
     await db('person').where('id', response.body.result).del();
   });
@@ -163,7 +164,7 @@ describe('PATCH /people/:id - Atualiza todos os campos', () => {
     const createResponse = await request(app)
       .post('/people')
       .send({
-        name: 'Original Name',
+        name: faker.person.fullName(),
         birthday: subYears(new Date(), 25).toISOString(),
         gender: Genders.Male,
         race: Race.Brown,
@@ -219,7 +220,7 @@ describe('DELETE /person/:id', () => {
     const response = await request(app)
       .post('/people')
       .send({
-        name: 'Luis Santiago',
+        name: faker.person.fullName(),
         birthday: subYears(new Date(), 20).toISOString(),
         gender: Genders.Male,
         email: faker.internet.email(),
@@ -227,8 +228,12 @@ describe('DELETE /person/:id', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/);
     const personID = response.body.result;
-    await request(app).del(`/people/${personID}`);
+
+    await request(app).delete(`/people/${personID}`).expect(200);
+
     request(app).get(`/people/${personID}`).expect(400);
+
+    await db('person').where('id', personID).del();
   });
 
   it('Deve retornar 400 se o ID do aluno não for encontrado', function () {
