@@ -2,7 +2,7 @@ GET http://localhost:4000
 
 ###
 
-GET http://localhost:4000/dashboard?id=72cf0be5-bcaa-4b7b-a535-7177b8e462e5
+GET http://localhost:4000/dashboard?id=9a330fa3-395e-432a-a8fb-266c0e3bbeb8
 
 ###
 
@@ -72,11 +72,13 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:4000/people/ac4246d5-9625-4b82-8ff8-5d04fed4e940
+PATCH http://localhost:4000/people/ca60ce18-9310-4775-891c-7ec6ed2295d1
 Content-Type: application/json
 
 {
-  "center_id": "a101d8d7-28b1-42e9-a134-87f911426639"
+  "center_id": "709c921c-defc-429a-bced-3253c56999bc",
+  "belt_id": "49c05de5-cb6c-42cf-be3c-ea16642dbed9",
+  "current_teacher_id": "72cf0be5-bcaa-4b7b-a535-7177b8e462e5"
 }
 
 ###
@@ -86,7 +88,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:4000/people/e6c9ed14-0d88-4131-9695-42e81dbd05ca
+DELETE http://localhost:4000/people/6139d10c-a88f-4f8b-ae79-21172dfccbfe
 Content-Type: application/json
 
 ###
@@ -100,7 +102,7 @@ POST http://localhost:4000/logout
 
 ###
 
-PATCH http://localhost:4000/people/ed8e325a-2b28-4c73-bb20-9ce5e41bb910/graduateToTeacher
+PATCH http://localhost:4000/people/6139d10c-a88f-4f8b-ae79-21172dfccbfe/graduateToTeacher
 
 ###
 
