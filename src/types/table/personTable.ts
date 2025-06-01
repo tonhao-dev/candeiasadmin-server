@@ -49,9 +49,13 @@ export interface PersonRecord extends PersonTable {
   belt_type_code: string | null;
   belt_type_range_start_in_years: number | null;
   belt_type_range_end_in_years: number | null;
-  center_name: string | null;
   current_teacher_id: UUID | null;
   teacher_name: string | null;
   teacher_phone: string | null;
   teacher_nickname: string | null;
+  center_id: UUID | null;
+  center_name: string | null;
+  center_address: string | null;
+  center_longitude: number | null;
+  center_latitude: number | null;
 }

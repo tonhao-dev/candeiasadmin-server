@@ -111,7 +111,11 @@ export class PersonRepository implements IPersonRepository {
         'teacher.name as teacher_name',
         'teacher.phone as teacher_phone',
         'teacher.nickname as teacher_nickname',
-        'center.name as center_name'
+        'center.id as center_id',
+        'center.name as center_name',
+        'center.address as center_address',
+        'center.longitude as center_longitude',
+        'center.latitude as center_latitude'
       )
       .leftJoin('guardian', 'person.guardian_id', 'guardian.id')
       .leftJoin('belt', 'person.belt_id', 'belt.id')

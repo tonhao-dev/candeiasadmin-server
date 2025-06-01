@@ -37,12 +37,18 @@ export class Record {
       year_of_last_belt_promotion: student.year_of_last_belt_promotion,
       trained_in_a_different_group: student.trained_in_a_different_group,
       first_capoeira_teacher: student.first_capoeira_teacher,
-      center_name: student.center_name,
       teacher: {
         id: student.current_teacher_id,
         name: student.teacher_name,
         phone: student.teacher_phone,
         nickname: student.teacher_nickname,
+      },
+      center: {
+        id: student.center_id,
+        name: student.center_name,
+        address: student.center_address,
+        longitude: student.center_longitude,
+        latitude: student.center_latitude,
       },
     };
   }
