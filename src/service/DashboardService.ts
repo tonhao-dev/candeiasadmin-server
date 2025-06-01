@@ -19,6 +19,7 @@ class DashboardService {
       this.buildBeltDistribution(id),
       this.buildGenderDistribution(id),
       this.buildRaceDistribution(id),
+      this.buildStudentsCountByTeacher(id),
     ]);
   }
 
@@ -173,6 +174,37 @@ class DashboardService {
           title: {
             display: true,
             text: 'Distribuição racial',
+          },
+        },
+      },
+    };
+  }
+
+  private async buildStudentsCountByTeacher(id: UUID): Promise<IDashboardResult<'bar'>> {
+    const studentsCountByTeacher = await this.dashboardRepository.getStudentsCountByTeacher(id);
+
+    return {
+      title: 'Quantidade de alunos por professor',
+      type: 'bar',
+      data: {
+        labels: studentsCountByTeacher.map(item => item.teacher),
+        datasets: [
+          {
+            label: 'Quantidade de alunos',
+            data: studentsCountByTeacher.map(item => item.count),
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Alunos por professor',
           },
         },
       },

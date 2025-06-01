@@ -216,4 +216,34 @@ export class DashboardRepository {
       count: Number(row.count),
     }));
   }
+
+  async getStudentsCountByTeacher(id: UUID): Promise<Array<{ teacher: string; count: number }>> {
+    const result = await db.raw(
+      `
+    WITH RECURSIVE recursive_students AS (
+      SELECT id, current_teacher_id
+      FROM person
+      WHERE current_teacher_id = ? AND deleted_at IS NULL
+
+      UNION ALL
+
+      SELECT p.id, p.current_teacher_id
+      FROM person p
+      INNER JOIN recursive_students rs ON p.current_teacher_id = rs.id
+      WHERE p.deleted_at IS NULL
+    )
+    SELECT t.name, t.nickname AS teacher, COUNT(*) AS count
+    FROM recursive_students rs
+      INNER JOIN person t ON rs.current_teacher_id = t.id
+    GROUP BY t.name, t.nickname
+    ORDER BY count DESC
+    `,
+      [id]
+    );
+
+    return result.rows.map((row: { teacher: string; count: number; name: string }) => ({
+      teacher: row.teacher ?? row.name,
+      count: Number(row.count),
+    }));
+  }
 }
