@@ -112,6 +112,14 @@ class DashboardService {
             text: 'Graduação dos alunos',
           },
         },
+        scales: {
+          y: {
+            ticks: {
+              stepSize: 1,
+            },
+            beginAtZero: true,
+          },
+        },
       },
     };
   }
@@ -185,7 +193,7 @@ class DashboardService {
 
     return {
       title: 'Quantidade de alunos por professor',
-      type: 'bar',
+      type: 'pie',
       data: {
         labels: studentsCountByTeacher.map(item => item.teacher),
         datasets: [
