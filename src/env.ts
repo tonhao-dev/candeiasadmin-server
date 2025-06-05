@@ -15,6 +15,7 @@ const envSchema = z.object({
   GOOGLE_CALLBACK_URL: z.string(),
   API_URL: z.string().url(),
   SESSION_SECRET: z.string().default('secret'),
+  CLIENT_URL: z.string().url().default('http://localhost:3000'),
 });
 
 export const env = envSchema.parse(process.env);

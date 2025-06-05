@@ -8,6 +8,7 @@ import { DashboardController } from './controller/DashboardController';
 import { HealthCheckController } from './controller/HealthController';
 import { PersonController } from './controller/PersonController';
 import { TeacherController } from './controller/TeacherController';
+import { env } from './env';
 
 const routes = express.Router();
 
@@ -76,12 +77,13 @@ routes.delete('/centers/:id', centerController.delete.bind(centerController));
 routes.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 routes.get(
   '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (_, response) => {
-    response.redirect('/');
-  }
+  passport.authenticate('google', {
+    failureRedirect: '/login',
+    successRedirect: env.CLIENT_URL + '/professor/painel',
+  })
 );
 routes.post('/auth/google', authController.isLoggedIn.bind(authController));
+routes.get('/auth/google/success', authController.getUser.bind(authController));
 routes.post('/logout', authController.logout.bind(authController));
 
 export { routes };

@@ -3,14 +3,18 @@ import { ValidationError } from '../entity/error';
 
 class AuthController {
   async isLoggedIn(request: Request, response: Response, next: NextFunction) {
-    return next();
-
-    if (process.env.NODE_ENV !== 'production') {
+    if (request.isAuthenticated()) {
       return next();
     }
 
-    if (request.isAuthenticated()) {
-      return next();
+    return response
+      .status(401)
+      .json(new ValidationError({ message: 'Unauthorized', validations: [] }));
+  }
+
+  async getUser(request: Request, response: Response) {
+    if (request.user) {
+      return response.status(200).json(request.user);
     }
 
     return response
