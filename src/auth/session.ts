@@ -13,8 +13,6 @@ export const session = () =>
     saveUninitialized: false,
     cookie: {
       secure: isProduction,
-      httpOnly: true,
-      sameSite: isProduction ? 'strict' : 'lax',
       maxAge: ONE_DAY_IN_MILLISECONDS,
     },
   }) as unknown as RequestHandler;

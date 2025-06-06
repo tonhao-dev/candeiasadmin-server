@@ -6,11 +6,17 @@ import { session } from './session';
 passport.use(GOOGLE_STRATEGY);
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  console.log('serializeUser', user);
+  process.nextTick(function () {
+    done(null, user);
+  });
 });
 
 passport.deserializeUser((user: Express.User, done) => {
-  done(null, user);
+  console.log('deserializeUser', user);
+  process.nextTick(function () {
+    done(null, user);
+  });
 });
 
 export const passportSetup = (app: Application) => {

@@ -78,8 +78,8 @@ routes.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 routes.get(
   '/auth/google/callback',
   passport.authenticate('google', {
-    failureRedirect: '/login',
     successRedirect: env.CLIENT_URL + '/professor/painel',
+    failureRedirect: env.CLIENT_URL,
   })
 );
 routes.post('/auth/google', authController.isLoggedIn.bind(authController));
