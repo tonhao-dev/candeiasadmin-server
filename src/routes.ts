@@ -83,7 +83,6 @@ routes.get(
   })
 );
 routes.post('/auth/google', authController.isLoggedIn.bind(authController));
-routes.get('/auth/google/success', authController.getUser.bind(authController));
 routes.post('/logout', authController.logout.bind(authController));
 
 export { routes };

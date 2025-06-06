@@ -12,16 +12,6 @@ class AuthController {
       .json(new ValidationError({ message: 'Unauthorized', validations: [] }));
   }
 
-  async getUser(request: Request, response: Response) {
-    if (request.user) {
-      return response.status(200).json(request.user);
-    }
-
-    return response
-      .status(401)
-      .json(new ValidationError({ message: 'Unauthorized', validations: [] }));
-  }
-
   async logout(request: Request, response: Response, next: NextFunction) {
     if (!request.logout) {
       return response
