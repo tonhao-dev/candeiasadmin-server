@@ -36,20 +36,20 @@ export async function up(knex: Knex): Promise<void> {
     table.string('education_level').nullable();
     table.string('course').nullable();
     table.boolean('is_teacher').notNullable().defaultTo(false);
-    table.uuid('belt_id').nullable().references('id').inTable('belt').onDelete('CASCADE');
+    table.uuid('belt_id').nullable().references('id').inTable('belt').onDelete('SET NULL');
     table.integer('year_start_capoeira').nullable();
     table.integer('effective_capoeira_training_time').nullable();
     table.integer('year_of_last_belt_promotion').nullable();
     table.string('trained_in_a_different_group').nullable();
     table.string('first_capoeira_teacher').nullable();
-    table.uuid('center_id').nullable().references('id').inTable('center').onDelete('CASCADE');
+    table.uuid('center_id').nullable().references('id').inTable('center').onDelete('SET NULL');
     table
       .uuid('current_teacher_id')
       .references('id')
       .inTable('person')
       .nullable()
       .onDelete('CASCADE');
-    table.uuid('guardian_id').nullable().references('id').inTable('guardian').onDelete('CASCADE');
+    table.uuid('guardian_id').nullable().references('id').inTable('guardian').onDelete('SET NULL');
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('deleted_at').defaultTo(null);
