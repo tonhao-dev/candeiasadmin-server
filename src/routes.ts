@@ -82,7 +82,6 @@ routes.get(
     failureRedirect: env.CLIENT_URL,
   })
 );
-routes.post('/auth/google', authController.isLoggedIn.bind(authController));
 routes.post('/logout', authController.logout.bind(authController));
 
 export { routes };
